@@ -5,9 +5,23 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>Hugo博客搭建 | My New Hugo Site</title>
+<title>Hugo博客搭建 | FallingKid</title>
 <meta name="keywords" content="">
-<meta name="description" content="Hugo博客搭建 - My New Hugo Site">
+<meta name="description" content="安装 二进制（跨平台） 从Hugo Releases下载适合平台的最新版本，这里以0.100.0版本为例，如 64 位的 Linux 可以下载hugo_0.100.0_Linux-32bit.tar.gz，Windows 和 MacOS 类似
+下载好后，解压缩并移动到/usr/local/bin目录下
+tar -zxvf hugo_0.100.0_Linux-32bit.tar.gz mv hugo /usr/local/bin/ macOS macOS 可以使用 Homebrew直接安装（前提是安装了Homebrew）
+brew install hugo 其它 使用hugo version查看 Hugo 版本，检查是否成功安装
+更多安装方法和详细过程建议阅读官方文档：Install Hugo
+附上 GitHub 地址：hugo
+部署 新建站点 找一个合适的目录（例如家目录~/），新建站点，siteName为站点目录名称
+hugo new site siteName 默认站点使用toml格式的配置文件，加上-f参数，配置文件使用 yml 格式
+hugo new site siteName -f yml 添加主题 不同主题安装方式不一定相同，可以去搜索相应主题的文档
+这里以PaperMod为例
+在站点目录（刚才新建站点生成的文件夹）下
+git clone https://github.com/adityatelange/hugo-PaperMod themes/PaperMod --depth=1 官方文档有更多方法及主题更多介绍：hugo-PaperMod
+下载完成后，打开配置文件config.yml，添加主题配置项
+theme: PaperMod 主题更新方式：
+cd theme/PaperMod git pull 添加文章 在站点目录下，新建一篇文章，如first-post.">
 <meta name="author" content="">
 <link rel="canonical" href="https://FallingKid.github.io/post/hugo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.bc1149f4a72aa4858d3a9f71462f75e5884ffe8073ea9d6d5761d5663d651e20.css" integrity="sha256-vBFJ9KcqpIWNOp9xRi915YhP/oBz6p1tV2HVZj1lHiA=" rel="preload stylesheet" as="style">
@@ -57,7 +71,21 @@
 
     </style>
 </noscript><meta property="og:title" content="Hugo博客搭建" />
-<meta property="og:description" content="" />
+<meta property="og:description" content="安装 二进制（跨平台） 从Hugo Releases下载适合平台的最新版本，这里以0.100.0版本为例，如 64 位的 Linux 可以下载hugo_0.100.0_Linux-32bit.tar.gz，Windows 和 MacOS 类似
+下载好后，解压缩并移动到/usr/local/bin目录下
+tar -zxvf hugo_0.100.0_Linux-32bit.tar.gz mv hugo /usr/local/bin/ macOS macOS 可以使用 Homebrew直接安装（前提是安装了Homebrew）
+brew install hugo 其它 使用hugo version查看 Hugo 版本，检查是否成功安装
+更多安装方法和详细过程建议阅读官方文档：Install Hugo
+附上 GitHub 地址：hugo
+部署 新建站点 找一个合适的目录（例如家目录~/），新建站点，siteName为站点目录名称
+hugo new site siteName 默认站点使用toml格式的配置文件，加上-f参数，配置文件使用 yml 格式
+hugo new site siteName -f yml 添加主题 不同主题安装方式不一定相同，可以去搜索相应主题的文档
+这里以PaperMod为例
+在站点目录（刚才新建站点生成的文件夹）下
+git clone https://github.com/adityatelange/hugo-PaperMod themes/PaperMod --depth=1 官方文档有更多方法及主题更多介绍：hugo-PaperMod
+下载完成后，打开配置文件config.yml，添加主题配置项
+theme: PaperMod 主题更新方式：
+cd theme/PaperMod git pull 添加文章 在站点目录下，新建一篇文章，如first-post." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://FallingKid.github.io/post/hugo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-08-02T20:48:13&#43;08:00" />
@@ -65,7 +93,21 @@
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Hugo博客搭建"/>
-<meta name="twitter:description" content=""/>
+<meta name="twitter:description" content="安装 二进制（跨平台） 从Hugo Releases下载适合平台的最新版本，这里以0.100.0版本为例，如 64 位的 Linux 可以下载hugo_0.100.0_Linux-32bit.tar.gz，Windows 和 MacOS 类似
+下载好后，解压缩并移动到/usr/local/bin目录下
+tar -zxvf hugo_0.100.0_Linux-32bit.tar.gz mv hugo /usr/local/bin/ macOS macOS 可以使用 Homebrew直接安装（前提是安装了Homebrew）
+brew install hugo 其它 使用hugo version查看 Hugo 版本，检查是否成功安装
+更多安装方法和详细过程建议阅读官方文档：Install Hugo
+附上 GitHub 地址：hugo
+部署 新建站点 找一个合适的目录（例如家目录~/），新建站点，siteName为站点目录名称
+hugo new site siteName 默认站点使用toml格式的配置文件，加上-f参数，配置文件使用 yml 格式
+hugo new site siteName -f yml 添加主题 不同主题安装方式不一定相同，可以去搜索相应主题的文档
+这里以PaperMod为例
+在站点目录（刚才新建站点生成的文件夹）下
+git clone https://github.com/adityatelange/hugo-PaperMod themes/PaperMod --depth=1 官方文档有更多方法及主题更多介绍：hugo-PaperMod
+下载完成后，打开配置文件config.yml，添加主题配置项
+theme: PaperMod 主题更新方式：
+cd theme/PaperMod git pull 添加文章 在站点目录下，新建一篇文章，如first-post."/>
 
 
 <script type="application/ld+json">
@@ -94,12 +136,12 @@
   "@type": "BlogPosting",
   "headline": "Hugo博客搭建",
   "name": "Hugo博客搭建",
-  "description": "",
+  "description": "安装 二进制（跨平台） 从Hugo Releases下载适合平台的最新版本，这里以0.100.0版本为例，如 64 位的 Linux 可以下载hugo_0.100.0_Linux-32bit.tar.gz，Windows 和 MacOS 类似\n下载好后，解压缩并移动到/usr/local/bin目录下\ntar -zxvf hugo_0.100.0_Linux-32bit.tar.gz mv hugo /usr/local/bin/ macOS macOS 可以使用 Homebrew直接安装（前提是安装了Homebrew）\nbrew install hugo 其它 使用hugo version查看 Hugo 版本，检查是否成功安装\n更多安装方法和详细过程建议阅读官方文档：Install Hugo\n附上 GitHub 地址：hugo\n部署 新建站点 找一个合适的目录（例如家目录~/），新建站点，siteName为站点目录名称\nhugo new site siteName 默认站点使用toml格式的配置文件，加上-f参数，配置文件使用 yml 格式\nhugo new site siteName -f yml 添加主题 不同主题安装方式不一定相同，可以去搜索相应主题的文档\n这里以PaperMod为例\n在站点目录（刚才新建站点生成的文件夹）下\ngit clone https://github.com/adityatelange/hugo-PaperMod themes/PaperMod --depth=1 官方文档有更多方法及主题更多介绍：hugo-PaperMod\n下载完成后，打开配置文件config.yml，添加主题配置项\ntheme: PaperMod 主题更新方式：\ncd theme/PaperMod git pull 添加文章 在站点目录下，新建一篇文章，如first-post.",
   "keywords": [
     
   ],
-  "articleBody": "",
-  "wordCount" : "0",
+  "articleBody": "安装 二进制（跨平台） 从Hugo Releases下载适合平台的最新版本，这里以0.100.0版本为例，如 64 位的 Linux 可以下载hugo_0.100.0_Linux-32bit.tar.gz，Windows 和 MacOS 类似\n下载好后，解压缩并移动到/usr/local/bin目录下\ntar -zxvf hugo_0.100.0_Linux-32bit.tar.gz mv hugo /usr/local/bin/ macOS macOS 可以使用 Homebrew直接安装（前提是安装了Homebrew）\nbrew install hugo 其它 使用hugo version查看 Hugo 版本，检查是否成功安装\n更多安装方法和详细过程建议阅读官方文档：Install Hugo\n附上 GitHub 地址：hugo\n部署 新建站点 找一个合适的目录（例如家目录~/），新建站点，siteName为站点目录名称\nhugo new site siteName 默认站点使用toml格式的配置文件，加上-f参数，配置文件使用 yml 格式\nhugo new site siteName -f yml 添加主题 不同主题安装方式不一定相同，可以去搜索相应主题的文档\n这里以PaperMod为例\n在站点目录（刚才新建站点生成的文件夹）下\ngit clone https://github.com/adityatelange/hugo-PaperMod themes/PaperMod --depth=1 官方文档有更多方法及主题更多介绍：hugo-PaperMod\n下载完成后，打开配置文件config.yml，添加主题配置项\ntheme: PaperMod 主题更新方式：\ncd theme/PaperMod git pull 添加文章 在站点目录下，新建一篇文章，如first-post.md\nhugo new post/first-post.md 文件会生成到content/post/first-post.md位置，文章中draft: true表示文章是一篇草稿，草稿默认无法部署，可以将其值修改为false，或在之后的部署时添加--buildDrafts以启用草稿\n启动服务 # 启动 hugo hugo server # 以指定主题启动 hugo server --theme=PaperMod # 同时启用草稿 hugo server --theme=PaperMod --buildDrafts 启动成功后，通过http://localhost:1313/可以在本地预览效果\n部署到 GitHub 部署到 Gitee 也可以，但需要实名认证，方法略有不同，这里就不介绍了\n首先需要在 GitHub 上新建一个空仓库，仓库名为UserName.github.io，其中UserName为自己GitHub的用户名\n仓库必须选择公开（Public），否则部署上去也访问不到\n其他选项默认即可，不用添加README.md\n仓库建好之后，在站点目录下，记得替换UserName\nhugo --theme=PaperMod --baseUrl=\"https://UserName.github.io\" --buildDrafts 注：第一次执行，--theme=PaperMod参数一定要加，不然等会访问可能会加载不出 css 文件\n然后进入生成的public目录下，将内容推送到 GitHub\ncd public git init git add . git commit -m \"提交信息\" # UserName 为自己 GitHub 的用户名，替换即可 git remote add origin https://github.com:UserName/UserName.github.io.git # 第一次 push 必须加上 -u master，以后再提交就只执行 git push 即可 git push origin -u master 推送完成后，访问https://UserName.github.io就可以看见博客内容了（GitHub 可能加载比较慢，需要多等一会儿）\n添加新文章 之后再添加新文章还是同样的方法，先新建文章\nhugo new post/second-post.md 然后修改内容，修改完成后\nhugo --theme=PaperMod --baseUrl=\"https://UserName.github.io\" --buildDrafts 记得替换UserName，如果不想显示草稿，不加--buildDrafts即可\n",
+  "wordCount" : "162",
   "inLanguage": "en",
   "datePublished": "2022-08-02T20:48:13+08:00",
   "dateModified": "2022-08-02T20:48:13+08:00",
@@ -109,7 +151,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "My New Hugo Site",
+    "name": "FallingKid",
     "logo": {
       "@type": "ImageObject",
       "url": "https://FallingKid.github.io/favicon.ico"
@@ -134,7 +176,7 @@
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="https://FallingKid.github.io" accesskey="h" title="My New Hugo Site (Alt + H)">My New Hugo Site</a>
+            <a href="https://FallingKid.github.io" accesskey="h" title="FallingKid (Alt + H)">FallingKid</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -173,7 +215,108 @@
     <div class="post-meta"><span title='2022-08-02 20:48:13 +0800 CST'>August 2, 2022</span>
 
 </div>
-  </header> 
+  </header> <div class="toc">
+    <details  open>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#安装">安装</a>
+      <ul>
+        <li><a href="#二进制跨平台">二进制（跨平台）</a></li>
+        <li><a href="#macos">macOS</a></li>
+        <li><a href="#其它">其它</a></li>
+      </ul>
+    </li>
+    <li><a href="#部署">部署</a>
+      <ul>
+        <li><a href="#新建站点">新建站点</a></li>
+        <li><a href="#添加主题">添加主题</a></li>
+        <li><a href="#添加文章">添加文章</a></li>
+        <li><a href="#启动服务">启动服务</a></li>
+        <li><a href="#部署到-github">部署到 GitHub</a></li>
+        <li><a href="#添加新文章">添加新文章</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h2 id="安装">安装<a hidden class="anchor" aria-hidden="true" href="#安装">#</a></h2>
+<h3 id="二进制跨平台">二进制（跨平台）<a hidden class="anchor" aria-hidden="true" href="#二进制跨平台">#</a></h3>
+<p>从<a href="https://github.com/gohugoio/hugo/releases">Hugo Releases</a>下载适合平台的最新版本，这里以<code>0.100.0</code>版本为例，如 64 位的 Linux 可以下载<code>hugo_0.100.0_Linux-32bit.tar.gz</code>，Windows 和 MacOS 类似</p>
+<p>下载好后，解压缩并移动到<code>/usr/local/bin</code>目录下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>tar -zxvf hugo_0.100.0_Linux-32bit.tar.gz
+</span></span><span style="display:flex;"><span>mv hugo /usr/local/bin/
+</span></span></code></pre></div><h3 id="macos">macOS<a hidden class="anchor" aria-hidden="true" href="#macos">#</a></h3>
+<p>macOS 可以使用 <code>Homebrew</code>直接安装（前提是安装了<code>Homebrew</code>）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>brew install hugo
+</span></span></code></pre></div><h3 id="其它">其它<a hidden class="anchor" aria-hidden="true" href="#其它">#</a></h3>
+<p>使用<code>hugo version</code>查看 Hugo 版本，检查是否成功安装</p>
+<p>更多安装方法和详细过程建议阅读官方文档：<a href="https://gohugo.io/getting-started/installing/">Install Hugo</a></p>
+<p>附上 GitHub 地址：<a href="https://github.com/gohugoio/hugo">hugo</a></p>
+<h2 id="部署">部署<a hidden class="anchor" aria-hidden="true" href="#部署">#</a></h2>
+<h3 id="新建站点">新建站点<a hidden class="anchor" aria-hidden="true" href="#新建站点">#</a></h3>
+<p>找一个合适的目录（例如家目录<code>~/</code>），新建站点，<code>siteName</code>为站点目录名称</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>hugo new site siteName
+</span></span></code></pre></div><p>默认站点使用<code>toml</code>格式的配置文件，加上<code>-f</code>参数，配置文件使用 yml 格式</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>hugo new site siteName -f yml
+</span></span></code></pre></div><h3 id="添加主题">添加主题<a hidden class="anchor" aria-hidden="true" href="#添加主题">#</a></h3>
+<p>不同主题安装方式不一定相同，可以去搜索相应主题的文档</p>
+<p>这里以<code>PaperMod</code>为例</p>
+<p>在站点目录（刚才新建站点生成的文件夹）下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>git clone https://github.com/adityatelange/hugo-PaperMod themes/PaperMod --depth<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</span></span></code></pre></div><p>官方文档有更多方法及主题更多介绍：<a href="https://adityatelange.github.io/hugo-PaperMod/">hugo-PaperMod</a></p>
+<p>下载完成后，打开配置文件<code>config.yml</code>，添加主题配置项</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>theme: PaperMod
+</span></span></code></pre></div><p>主题更新方式：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>cd theme/PaperMod
+</span></span><span style="display:flex;"><span>git pull
+</span></span></code></pre></div><h3 id="添加文章">添加文章<a hidden class="anchor" aria-hidden="true" href="#添加文章">#</a></h3>
+<p>在站点目录下，新建一篇文章，如<code>first-post.md</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>hugo new post/first-post.md
+</span></span></code></pre></div><p>文件会生成到<code>content/post/first-post.md</code>位置，文章中<code>draft: true</code>表示文章是一篇草稿，草稿默认无法部署，可以将其值修改为<code>false</code>，或在之后的部署时添加<code>--buildDrafts</code>以启用草稿</p>
+<h3 id="启动服务">启动服务<a hidden class="anchor" aria-hidden="true" href="#启动服务">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 启动 hugo</span>
+</span></span><span style="display:flex;"><span>hugo server
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 以指定主题启动</span>
+</span></span><span style="display:flex;"><span>hugo server --theme<span style="color:#f92672">=</span>PaperMod
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 同时启用草稿</span>
+</span></span><span style="display:flex;"><span>hugo server --theme<span style="color:#f92672">=</span>PaperMod --buildDrafts
+</span></span></code></pre></div><p>启动成功后，通过<code>http://localhost:1313/</code>可以在本地预览效果</p>
+<h3 id="部署到-github">部署到 GitHub<a hidden class="anchor" aria-hidden="true" href="#部署到-github">#</a></h3>
+<p>部署到 Gitee 也可以，但需要实名认证，方法略有不同，这里就不介绍了</p>
+<p>首先需要在 GitHub 上新建一个空仓库，仓库名为<code>UserName.github.io</code>，其中<code>UserName</code>为自己<code>GitHub</code>的用户名</p>
+<p>仓库必须选择公开（Public），否则部署上去也访问不到</p>
+<p>其他选项默认即可，不用添加<code>README.md</code></p>
+<p><img loading="lazy" src="https://s2.loli.net/2022/08/02/b6cjMriTW7eqYRo.png" alt=""  />
+</p>
+<p>仓库建好之后，在站点目录下，记得替换<code>UserName</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>hugo --theme<span style="color:#f92672">=</span>PaperMod --baseUrl<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://UserName.github.io&#34;</span> --buildDrafts
+</span></span></code></pre></div><p>注：第一次执行，<code>--theme=PaperMod</code>参数一定要加，不然等会访问可能会加载不出 css 文件</p>
+<p>然后进入生成的<code>public</code>目录下，将内容推送到 GitHub</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>cd public
+</span></span><span style="display:flex;"><span>git init
+</span></span><span style="display:flex;"><span>git add .
+</span></span><span style="display:flex;"><span>git commit -m <span style="color:#e6db74">&#34;提交信息&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># UserName 为自己 GitHub 的用户名，替换即可</span>
+</span></span><span style="display:flex;"><span>git remote add origin https://github.com:UserName/UserName.github.io.git
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 第一次 push 必须加上 -u master，以后再提交就只执行 git push 即可</span>
+</span></span><span style="display:flex;"><span>git push origin -u master
+</span></span></code></pre></div><p>推送完成后，访问<code>https://UserName.github.io</code>就可以看见博客内容了（GitHub 可能加载比较慢，需要多等一会儿）</p>
+<h3 id="添加新文章">添加新文章<a hidden class="anchor" aria-hidden="true" href="#添加新文章">#</a></h3>
+<p>之后再添加新文章还是同样的方法，先新建文章</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>hugo new post/second-post.md
+</span></span></code></pre></div><p>然后修改内容，修改完成后</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>hugo --theme<span style="color:#f92672">=</span>PaperMod --baseUrl<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://UserName.github.io&#34;</span> --buildDrafts
+</span></span></code></pre></div><p>记得替换<code>UserName</code>，如果不想显示草稿，不加<code>--buildDrafts</code>即可</p>
+
+
+  </div>
 
   <footer class="post-footer">
     <ul class="post-tags">
@@ -183,7 +326,7 @@
     </main>
     
 <footer class="footer">
-    <span>&copy; 2022 <a href="https://FallingKid.github.io">My New Hugo Site</a></span>
+    <span>&copy; 2022 <a href="https://FallingKid.github.io">FallingKid</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &

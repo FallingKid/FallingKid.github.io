@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Posts on My New Hugo Site</title>
+    <title>Posts on FallingKid</title>
     <link>https://FallingKid.github.io/post/</link>
-    <description>Recent content in Posts on My New Hugo Site</description>
+    <description>Recent content in Posts on FallingKid</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 02 Aug 2022 20:48:13 +0800</lastBuildDate><atom:link href="https://FallingKid.github.io/post/index.xml" rel="self" type="application/rss+xml" />
@@ -13,7 +13,21 @@
       <pubDate>Tue, 02 Aug 2022 20:48:13 +0800</pubDate>
       
       <guid>https://FallingKid.github.io/post/hugo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</guid>
-      <description></description>
+      <description>安装 二进制（跨平台） 从Hugo Releases下载适合平台的最新版本，这里以0.100.0版本为例，如 64 位的 Linux 可以下载hugo_0.100.0_Linux-32bit.tar.gz，Windows 和 MacOS 类似
+下载好后，解压缩并移动到/usr/local/bin目录下
+tar -zxvf hugo_0.100.0_Linux-32bit.tar.gz mv hugo /usr/local/bin/ macOS macOS 可以使用 Homebrew直接安装（前提是安装了Homebrew）
+brew install hugo 其它 使用hugo version查看 Hugo 版本，检查是否成功安装
+更多安装方法和详细过程建议阅读官方文档：Install Hugo
+附上 GitHub 地址：hugo
+部署 新建站点 找一个合适的目录（例如家目录~/），新建站点，siteName为站点目录名称
+hugo new site siteName 默认站点使用toml格式的配置文件，加上-f参数，配置文件使用 yml 格式
+hugo new site siteName -f yml 添加主题 不同主题安装方式不一定相同，可以去搜索相应主题的文档
+这里以PaperMod为例
+在站点目录（刚才新建站点生成的文件夹）下
+git clone https://github.com/adityatelange/hugo-PaperMod themes/PaperMod --depth=1 官方文档有更多方法及主题更多介绍：hugo-PaperMod
+下载完成后，打开配置文件config.yml，添加主题配置项
+theme: PaperMod 主题更新方式：
+cd theme/PaperMod git pull 添加文章 在站点目录下，新建一篇文章，如first-post.</description>
     </item>
     
   </channel>
