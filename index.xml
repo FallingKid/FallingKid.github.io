@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>My New Hugo Site</title>
+    <link>https://FallingKid.github.io/blog/</link>
+    <description>Recent content on My New Hugo Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 02 Aug 2022 16:04:50 +0800</lastBuildDate><atom:link href="https://FallingKid.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Yum</title>
+      <link>https://FallingKid.github.io/blog/post/yum/</link>
+      <pubDate>Tue, 02 Aug 2022 16:04:50 +0800</pubDate>
+      
+      <guid>https://FallingKid.github.io/blog/post/yum/</guid>
+      <description>语法 yum [option] [command] [package] 选项 option -h：显示帮助信息 -y：对所有的提问都回答“yes” -c：指定配置文件 -q：安静模式 -v：详细模式 -d：设置调试等级（0-10） -e：设置错误等级（0-10） -R：设置 yum 处理一个命令的最大等待时间 -C：完全从缓存中运行，而不去下载或者更新任何头文件 命令 command install：安装 rpm 软件包 update：更新 rpm 软件包 check-update：检查是否有可用的更新 rpm 软件包 remove：删除 rpm 软件包 autoremove：删除 rpm 软件包及其依赖 list：显示软件包的信息 search：检查软件包的信息 info：显示指定的 rpm 软件包的描述信息和概要信息 clean：清理 yum 过期的缓存 shell：进入 yum 的 shell 提示符 localinstall：安装本地的 rpm 软件包 localupdate：显示本地 rpm 软件包进行更新 deplist：显示 rpm 软件包的所有依赖关系 实例 安装 # 安装 rpm 软件包 yum install &amp;lt;package&amp;gt; # 安装多个 rpm 软件包 yum install &amp;lt;package1&amp;gt;, &amp;lt;package2&amp;gt;, &amp;lt;package3&amp;gt; 更新 # 检查是否有可用的更新 rpm 软件包 yum check-update # 全部更新 yum update # 更新指定 rpm 软件包 yum update &amp;lt;package&amp;gt; 查找 # 显示所有已经安装和可以安装的 rpm 包 yum list # 显示指定 rpm 包安装情况 yum list &amp;lt;package&amp;gt; # 显示 rpm 包详细信息 yum info &amp;lt;package&amp;gt; # 显示 rpm 包依赖情况 yum deplist &amp;lt;package&amp;gt; # 显示所有已安装的 rpm 包 yum list installed # 在所有已安装的 rpm 包中查找指定 rpm 包 yum list installed | grep &amp;lt;package&amp;gt; # 查找 rpm 包 yum search &amp;lt;package&amp;gt; 删除 # 删除指定的 rpm 软件包 rpm remove &amp;lt;package&amp;gt; # 删除指定的 rpm 软件包及其依赖 rpm autoremove &amp;lt;package&amp;gt; 清除缓存 # 清除缓存目录下的 rpm 包 yum clean &amp;lt;package&amp;gt; # 清除缓存目录下的 headers yum clean headers # 清除所有 yum clean all 参考 https://wangchujiang.</description>
+    </item>
+    
+  </channel>
+</rss>

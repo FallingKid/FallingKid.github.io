@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Yum | My New Hugo Site</title>
+<meta name="keywords" content="">
+<meta name="description" content="语法 yum [option] [command] [package] 选项 option -h：显示帮助信息 -y：对所有的提问都回答“yes” -c：指定配置文件 -q：安静模式 -v：详细模式 -d：设置调试等级（0-10） -e：设置错误等级（0-10） -R：设置 yum 处理一个命令的最大等待时间 -C：完全从缓存中运行，而不去下载或者更新任何头文件 命令 command install：安装 rpm 软件包 update：更新 rpm 软件包 check-update：检查是否有可用的更新 rpm 软件包 remove：删除 rpm 软件包 autoremove：删除 rpm 软件包及其依赖 list：显示软件包的信息 search：检查软件包的信息 info：显示指定的 rpm 软件包的描述信息和概要信息 clean：清理 yum 过期的缓存 shell：进入 yum 的 shell 提示符 localinstall：安装本地的 rpm 软件包 localupdate：显示本地 rpm 软件包进行更新 deplist：显示 rpm 软件包的所有依赖关系 实例 安装 # 安装 rpm 软件包 yum install &lt;package&gt; # 安装多个 rpm 软件包 yum install &lt;package1&gt;, &lt;package2&gt;, &lt;package3&gt; 更新 # 检查是否有可用的更新 rpm 软件包 yum check-update # 全部更新 yum update # 更新指定 rpm 软件包 yum update &lt;package&gt; 查找 # 显示所有已经安装和可以安装的 rpm 包 yum list # 显示指定 rpm 包安装情况 yum list &lt;package&gt; # 显示 rpm 包详细信息 yum info &lt;package&gt; # 显示 rpm 包依赖情况 yum deplist &lt;package&gt; # 显示所有已安装的 rpm 包 yum list installed # 在所有已安装的 rpm 包中查找指定 rpm 包 yum list installed | grep &lt;package&gt; # 查找 rpm 包 yum search &lt;package&gt; 删除 # 删除指定的 rpm 软件包 rpm remove &lt;package&gt; # 删除指定的 rpm 软件包及其依赖 rpm autoremove &lt;package&gt; 清除缓存 # 清除缓存目录下的 rpm 包 yum clean &lt;package&gt; # 清除缓存目录下的 headers yum clean headers # 清除所有 yum clean all 参考 https://wangchujiang.">
+<meta name="author" content="">
+<link rel="canonical" href="https://FallingKid.github.io/blog/post/yum/">
+<link crossorigin="anonymous" href="/blog/assets/css/stylesheet.bc1149f4a72aa4858d3a9f71462f75e5884ffe8073ea9d6d5761d5663d651e20.css" integrity="sha256-vBFJ9KcqpIWNOp9xRi915YhP/oBz6p1tV2HVZj1lHiA=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/blog/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://FallingKid.github.io/blog/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://FallingKid.github.io/blog/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://FallingKid.github.io/blog/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://FallingKid.github.io/blog/apple-touch-icon.png">
+<link rel="mask-icon" href="https://FallingKid.github.io/blog/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="Yum" />
+<meta property="og:description" content="语法 yum [option] [command] [package] 选项 option -h：显示帮助信息 -y：对所有的提问都回答“yes” -c：指定配置文件 -q：安静模式 -v：详细模式 -d：设置调试等级（0-10） -e：设置错误等级（0-10） -R：设置 yum 处理一个命令的最大等待时间 -C：完全从缓存中运行，而不去下载或者更新任何头文件 命令 command install：安装 rpm 软件包 update：更新 rpm 软件包 check-update：检查是否有可用的更新 rpm 软件包 remove：删除 rpm 软件包 autoremove：删除 rpm 软件包及其依赖 list：显示软件包的信息 search：检查软件包的信息 info：显示指定的 rpm 软件包的描述信息和概要信息 clean：清理 yum 过期的缓存 shell：进入 yum 的 shell 提示符 localinstall：安装本地的 rpm 软件包 localupdate：显示本地 rpm 软件包进行更新 deplist：显示 rpm 软件包的所有依赖关系 实例 安装 # 安装 rpm 软件包 yum install &lt;package&gt; # 安装多个 rpm 软件包 yum install &lt;package1&gt;, &lt;package2&gt;, &lt;package3&gt; 更新 # 检查是否有可用的更新 rpm 软件包 yum check-update # 全部更新 yum update # 更新指定 rpm 软件包 yum update &lt;package&gt; 查找 # 显示所有已经安装和可以安装的 rpm 包 yum list # 显示指定 rpm 包安装情况 yum list &lt;package&gt; # 显示 rpm 包详细信息 yum info &lt;package&gt; # 显示 rpm 包依赖情况 yum deplist &lt;package&gt; # 显示所有已安装的 rpm 包 yum list installed # 在所有已安装的 rpm 包中查找指定 rpm 包 yum list installed | grep &lt;package&gt; # 查找 rpm 包 yum search &lt;package&gt; 删除 # 删除指定的 rpm 软件包 rpm remove &lt;package&gt; # 删除指定的 rpm 软件包及其依赖 rpm autoremove &lt;package&gt; 清除缓存 # 清除缓存目录下的 rpm 包 yum clean &lt;package&gt; # 清除缓存目录下的 headers yum clean headers # 清除所有 yum clean all 参考 https://wangchujiang." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://FallingKid.github.io/blog/post/yum/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-08-02T16:04:50&#43;08:00" />
+<meta property="article:modified_time" content="2022-08-02T16:04:50&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Yum"/>
+<meta name="twitter:description" content="语法 yum [option] [command] [package] 选项 option -h：显示帮助信息 -y：对所有的提问都回答“yes” -c：指定配置文件 -q：安静模式 -v：详细模式 -d：设置调试等级（0-10） -e：设置错误等级（0-10） -R：设置 yum 处理一个命令的最大等待时间 -C：完全从缓存中运行，而不去下载或者更新任何头文件 命令 command install：安装 rpm 软件包 update：更新 rpm 软件包 check-update：检查是否有可用的更新 rpm 软件包 remove：删除 rpm 软件包 autoremove：删除 rpm 软件包及其依赖 list：显示软件包的信息 search：检查软件包的信息 info：显示指定的 rpm 软件包的描述信息和概要信息 clean：清理 yum 过期的缓存 shell：进入 yum 的 shell 提示符 localinstall：安装本地的 rpm 软件包 localupdate：显示本地 rpm 软件包进行更新 deplist：显示 rpm 软件包的所有依赖关系 实例 安装 # 安装 rpm 软件包 yum install &lt;package&gt; # 安装多个 rpm 软件包 yum install &lt;package1&gt;, &lt;package2&gt;, &lt;package3&gt; 更新 # 检查是否有可用的更新 rpm 软件包 yum check-update # 全部更新 yum update # 更新指定 rpm 软件包 yum update &lt;package&gt; 查找 # 显示所有已经安装和可以安装的 rpm 包 yum list # 显示指定 rpm 包安装情况 yum list &lt;package&gt; # 显示 rpm 包详细信息 yum info &lt;package&gt; # 显示 rpm 包依赖情况 yum deplist &lt;package&gt; # 显示所有已安装的 rpm 包 yum list installed # 在所有已安装的 rpm 包中查找指定 rpm 包 yum list installed | grep &lt;package&gt; # 查找 rpm 包 yum search &lt;package&gt; 删除 # 删除指定的 rpm 软件包 rpm remove &lt;package&gt; # 删除指定的 rpm 软件包及其依赖 rpm autoremove &lt;package&gt; 清除缓存 # 清除缓存目录下的 rpm 包 yum clean &lt;package&gt; # 清除缓存目录下的 headers yum clean headers # 清除所有 yum clean all 参考 https://wangchujiang."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "https://FallingKid.github.io/blog/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Yum",
+      "item": "https://FallingKid.github.io/blog/post/yum/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Yum",
+  "name": "Yum",
+  "description": "语法 yum [option] [command] [package] 选项 option -h：显示帮助信息 -y：对所有的提问都回答“yes” -c：指定配置文件 -q：安静模式 -v：详细模式 -d：设置调试等级（0-10） -e：设置错误等级（0-10） -R：设置 yum 处理一个命令的最大等待时间 -C：完全从缓存中运行，而不去下载或者更新任何头文件 命令 command install：安装 rpm 软件包 update：更新 rpm 软件包 check-update：检查是否有可用的更新 rpm 软件包 remove：删除 rpm 软件包 autoremove：删除 rpm 软件包及其依赖 list：显示软件包的信息 search：检查软件包的信息 info：显示指定的 rpm 软件包的描述信息和概要信息 clean：清理 yum 过期的缓存 shell：进入 yum 的 shell 提示符 localinstall：安装本地的 rpm 软件包 localupdate：显示本地 rpm 软件包进行更新 deplist：显示 rpm 软件包的所有依赖关系 实例 安装 # 安装 rpm 软件包 yum install \u0026lt;package\u0026gt; # 安装多个 rpm 软件包 yum install \u0026lt;package1\u0026gt;, \u0026lt;package2\u0026gt;, \u0026lt;package3\u0026gt; 更新 # 检查是否有可用的更新 rpm 软件包 yum check-update # 全部更新 yum update # 更新指定 rpm 软件包 yum update \u0026lt;package\u0026gt; 查找 # 显示所有已经安装和可以安装的 rpm 包 yum list # 显示指定 rpm 包安装情况 yum list \u0026lt;package\u0026gt; # 显示 rpm 包详细信息 yum info \u0026lt;package\u0026gt; # 显示 rpm 包依赖情况 yum deplist \u0026lt;package\u0026gt; # 显示所有已安装的 rpm 包 yum list installed # 在所有已安装的 rpm 包中查找指定 rpm 包 yum list installed | grep \u0026lt;package\u0026gt; # 查找 rpm 包 yum search \u0026lt;package\u0026gt; 删除 # 删除指定的 rpm 软件包 rpm remove \u0026lt;package\u0026gt; # 删除指定的 rpm 软件包及其依赖 rpm autoremove \u0026lt;package\u0026gt; 清除缓存 # 清除缓存目录下的 rpm 包 yum clean \u0026lt;package\u0026gt; # 清除缓存目录下的 headers yum clean headers # 清除所有 yum clean all 参考 https://wangchujiang.",
+  "keywords": [
+    
+  ],
+  "articleBody": "语法 yum [option] [command] [package] 选项 option -h：显示帮助信息 -y：对所有的提问都回答“yes” -c：指定配置文件 -q：安静模式 -v：详细模式 -d：设置调试等级（0-10） -e：设置错误等级（0-10） -R：设置 yum 处理一个命令的最大等待时间 -C：完全从缓存中运行，而不去下载或者更新任何头文件 命令 command install：安装 rpm 软件包 update：更新 rpm 软件包 check-update：检查是否有可用的更新 rpm 软件包 remove：删除 rpm 软件包 autoremove：删除 rpm 软件包及其依赖 list：显示软件包的信息 search：检查软件包的信息 info：显示指定的 rpm 软件包的描述信息和概要信息 clean：清理 yum 过期的缓存 shell：进入 yum 的 shell 提示符 localinstall：安装本地的 rpm 软件包 localupdate：显示本地 rpm 软件包进行更新 deplist：显示 rpm 软件包的所有依赖关系 实例 安装 # 安装 rpm 软件包 yum install # 安装多个 rpm 软件包 yum install , , 更新 # 检查是否有可用的更新 rpm 软件包 yum check-update # 全部更新 yum update # 更新指定 rpm 软件包 yum update 查找 # 显示所有已经安装和可以安装的 rpm 包 yum list # 显示指定 rpm 包安装情况 yum list # 显示 rpm 包详细信息 yum info # 显示 rpm 包依赖情况 yum deplist # 显示所有已安装的 rpm 包 yum list installed # 在所有已安装的 rpm 包中查找指定 rpm 包 yum list installed | grep # 查找 rpm 包 yum search 删除 # 删除指定的 rpm 软件包 rpm remove # 删除指定的 rpm 软件包及其依赖 rpm autoremove 清除缓存 # 清除缓存目录下的 rpm 包 yum clean # 清除缓存目录下的 headers yum clean headers # 清除所有 yum clean all 参考 https://wangchujiang.com/linux-command/c/yum.html\nhttps://www.cnblogs.com/hugetong/p/5921007.html\n",
+  "wordCount" : "184",
+  "inLanguage": "en",
+  "datePublished": "2022-08-02T16:04:50+08:00",
+  "dateModified": "2022-08-02T16:04:50+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://FallingKid.github.io/blog/post/yum/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "My New Hugo Site",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://FallingKid.github.io/blog/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://FallingKid.github.io/blog" accesskey="h" title="My New Hugo Site (Alt + H)">My New Hugo Site</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      Yum
+    </h1>
+    <div class="post-meta"><span title='2022-08-02 16:04:50 +0800 CST'>August 2, 2022</span>
+
+</div>
+  </header> 
+  <div class="post-content"><h2 id="语法">语法<a hidden class="anchor" aria-hidden="true" href="#语法">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>yum <span style="color:#f92672">[</span>option<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>command<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>package<span style="color:#f92672">]</span>
+</span></span></code></pre></div><h2 id="选项-option">选项 option<a hidden class="anchor" aria-hidden="true" href="#选项-option">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>-h：显示帮助信息
+</span></span><span style="display:flex;"><span>-y：对所有的提问都回答“yes”
+</span></span><span style="display:flex;"><span>-c：指定配置文件
+</span></span><span style="display:flex;"><span>-q：安静模式
+</span></span><span style="display:flex;"><span>-v：详细模式
+</span></span><span style="display:flex;"><span>-d：设置调试等级（0-10）
+</span></span><span style="display:flex;"><span>-e：设置错误等级（0-10）
+</span></span><span style="display:flex;"><span>-R：设置 yum 处理一个命令的最大等待时间
+</span></span><span style="display:flex;"><span>-C：完全从缓存中运行，而不去下载或者更新任何头文件
+</span></span></code></pre></div><h2 id="命令-command">命令 command<a hidden class="anchor" aria-hidden="true" href="#命令-command">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>install：安装 rpm 软件包
+</span></span><span style="display:flex;"><span>update：更新 rpm 软件包
+</span></span><span style="display:flex;"><span>check-update：检查是否有可用的更新 rpm 软件包
+</span></span><span style="display:flex;"><span>remove：删除 rpm 软件包
+</span></span><span style="display:flex;"><span>autoremove：删除 rpm 软件包及其依赖
+</span></span><span style="display:flex;"><span>list：显示软件包的信息
+</span></span><span style="display:flex;"><span>search：检查软件包的信息
+</span></span><span style="display:flex;"><span>info：显示指定的 rpm 软件包的描述信息和概要信息
+</span></span><span style="display:flex;"><span>clean：清理 yum 过期的缓存
+</span></span><span style="display:flex;"><span>shell：进入 yum 的 shell 提示符
+</span></span><span style="display:flex;"><span>localinstall：安装本地的 rpm 软件包
+</span></span><span style="display:flex;"><span>localupdate：显示本地 rpm 软件包进行更新
+</span></span><span style="display:flex;"><span>deplist：显示 rpm 软件包的所有依赖关系
+</span></span></code></pre></div><h2 id="实例">实例<a hidden class="anchor" aria-hidden="true" href="#实例">#</a></h2>
+<h3 id="安装">安装<a hidden class="anchor" aria-hidden="true" href="#安装">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 安装 rpm 软件包</span>
+</span></span><span style="display:flex;"><span>yum install &lt;package&gt;
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 安装多个 rpm 软件包</span>
+</span></span><span style="display:flex;"><span>yum install &lt;package1&gt;, &lt;package2&gt;, &lt;package3&gt;
+</span></span></code></pre></div><h3 id="更新">更新<a hidden class="anchor" aria-hidden="true" href="#更新">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 检查是否有可用的更新 rpm 软件包</span>
+</span></span><span style="display:flex;"><span>yum check-update
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 全部更新</span>
+</span></span><span style="display:flex;"><span>yum update
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 更新指定 rpm 软件包</span>
+</span></span><span style="display:flex;"><span>yum update &lt;package&gt;
+</span></span></code></pre></div><h3 id="查找">查找<a hidden class="anchor" aria-hidden="true" href="#查找">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 显示所有已经安装和可以安装的 rpm 包</span>
+</span></span><span style="display:flex;"><span>yum list
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 显示指定 rpm 包安装情况</span>
+</span></span><span style="display:flex;"><span>yum list &lt;package&gt;
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 显示 rpm 包详细信息</span>
+</span></span><span style="display:flex;"><span>yum info &lt;package&gt;
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 显示 rpm 包依赖情况</span>
+</span></span><span style="display:flex;"><span>yum deplist &lt;package&gt;
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 显示所有已安装的 rpm 包</span>
+</span></span><span style="display:flex;"><span>yum list installed
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 在所有已安装的 rpm 包中查找指定 rpm 包</span>
+</span></span><span style="display:flex;"><span>yum list installed | grep &lt;package&gt;
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 查找 rpm 包</span>
+</span></span><span style="display:flex;"><span>yum search &lt;package&gt;
+</span></span></code></pre></div><h3 id="删除">删除<a hidden class="anchor" aria-hidden="true" href="#删除">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 删除指定的 rpm 软件包</span>
+</span></span><span style="display:flex;"><span>rpm remove &lt;package&gt;
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 删除指定的 rpm 软件包及其依赖</span>
+</span></span><span style="display:flex;"><span>rpm autoremove &lt;package&gt;
+</span></span></code></pre></div><h3 id="清除缓存">清除缓存<a hidden class="anchor" aria-hidden="true" href="#清除缓存">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 清除缓存目录下的 rpm 包</span>
+</span></span><span style="display:flex;"><span>yum clean &lt;package&gt;
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 清除缓存目录下的 headers</span>
+</span></span><span style="display:flex;"><span>yum clean headers
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 清除所有</span>
+</span></span><span style="display:flex;"><span>yum clean all
+</span></span></code></pre></div><h2 id="参考">参考<a hidden class="anchor" aria-hidden="true" href="#参考">#</a></h2>
+<p><a href="https://wangchujiang.com/linux-command/c/yum.html">https://wangchujiang.com/linux-command/c/yum.html</a></p>
+<p><a href="https://www.cnblogs.com/hugetong/p/5921007.html">https://www.cnblogs.com/hugetong/p/5921007.html</a></p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2022 <a href="https://FallingKid.github.io/blog">My New Hugo Site</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
