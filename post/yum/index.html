@@ -9,15 +9,15 @@
 <meta name="keywords" content="">
 <meta name="description" content="语法 yum [option] [command] [package] 选项 option -h：显示帮助信息 -y：对所有的提问都回答“yes” -c：指定配置文件 -q：安静模式 -v：详细模式 -d：设置调试等级（0-10） -e：设置错误等级（0-10） -R：设置 yum 处理一个命令的最大等待时间 -C：完全从缓存中运行，而不去下载或者更新任何头文件 命令 command install：安装 rpm 软件包 update：更新 rpm 软件包 check-update：检查是否有可用的更新 rpm 软件包 remove：删除 rpm 软件包 autoremove：删除 rpm 软件包及其依赖 list：显示软件包的信息 search：检查软件包的信息 info：显示指定的 rpm 软件包的描述信息和概要信息 clean：清理 yum 过期的缓存 shell：进入 yum 的 shell 提示符 localinstall：安装本地的 rpm 软件包 localupdate：显示本地 rpm 软件包进行更新 deplist：显示 rpm 软件包的所有依赖关系 实例 安装 # 安装 rpm 软件包 yum install &lt;package&gt; # 安装多个 rpm 软件包 yum install &lt;package1&gt;, &lt;package2&gt;, &lt;package3&gt; 更新 # 检查是否有可用的更新 rpm 软件包 yum check-update # 全部更新 yum update # 更新指定 rpm 软件包 yum update &lt;package&gt; 查找 # 显示所有已经安装和可以安装的 rpm 包 yum list # 显示指定 rpm 包安装情况 yum list &lt;package&gt; # 显示 rpm 包详细信息 yum info &lt;package&gt; # 显示 rpm 包依赖情况 yum deplist &lt;package&gt; # 显示所有已安装的 rpm 包 yum list installed # 在所有已安装的 rpm 包中查找指定 rpm 包 yum list installed | grep &lt;package&gt; # 查找 rpm 包 yum search &lt;package&gt; 删除 # 删除指定的 rpm 软件包 rpm remove &lt;package&gt; # 删除指定的 rpm 软件包及其依赖 rpm autoremove &lt;package&gt; 清除缓存 # 清除缓存目录下的 rpm 包 yum clean &lt;package&gt; # 清除缓存目录下的 headers yum clean headers # 清除所有 yum clean all 参考 https://wangchujiang.">
 <meta name="author" content="">
-<link rel="canonical" href="https://FallingKid.github.io/blog/post/yum/">
-<link crossorigin="anonymous" href="/blog/assets/css/stylesheet.bc1149f4a72aa4858d3a9f71462f75e5884ffe8073ea9d6d5761d5663d651e20.css" integrity="sha256-vBFJ9KcqpIWNOp9xRi915YhP/oBz6p1tV2HVZj1lHiA=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="/blog/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+<link rel="canonical" href="https://FallingKid.github.io/post/yum/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.bc1149f4a72aa4858d3a9f71462f75e5884ffe8073ea9d6d5761d5663d651e20.css" integrity="sha256-vBFJ9KcqpIWNOp9xRi915YhP/oBz6p1tV2HVZj1lHiA=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
     onload="hljs.initHighlightingOnLoad();"></script>
-<link rel="icon" href="https://FallingKid.github.io/blog/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://FallingKid.github.io/blog/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://FallingKid.github.io/blog/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://FallingKid.github.io/blog/apple-touch-icon.png">
-<link rel="mask-icon" href="https://FallingKid.github.io/blog/safari-pinned-tab.svg">
+<link rel="icon" href="https://FallingKid.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://FallingKid.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://FallingKid.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://FallingKid.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://FallingKid.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
 <noscript>
@@ -59,7 +59,7 @@
 </noscript><meta property="og:title" content="Yum" />
 <meta property="og:description" content="语法 yum [option] [command] [package] 选项 option -h：显示帮助信息 -y：对所有的提问都回答“yes” -c：指定配置文件 -q：安静模式 -v：详细模式 -d：设置调试等级（0-10） -e：设置错误等级（0-10） -R：设置 yum 处理一个命令的最大等待时间 -C：完全从缓存中运行，而不去下载或者更新任何头文件 命令 command install：安装 rpm 软件包 update：更新 rpm 软件包 check-update：检查是否有可用的更新 rpm 软件包 remove：删除 rpm 软件包 autoremove：删除 rpm 软件包及其依赖 list：显示软件包的信息 search：检查软件包的信息 info：显示指定的 rpm 软件包的描述信息和概要信息 clean：清理 yum 过期的缓存 shell：进入 yum 的 shell 提示符 localinstall：安装本地的 rpm 软件包 localupdate：显示本地 rpm 软件包进行更新 deplist：显示 rpm 软件包的所有依赖关系 实例 安装 # 安装 rpm 软件包 yum install &lt;package&gt; # 安装多个 rpm 软件包 yum install &lt;package1&gt;, &lt;package2&gt;, &lt;package3&gt; 更新 # 检查是否有可用的更新 rpm 软件包 yum check-update # 全部更新 yum update # 更新指定 rpm 软件包 yum update &lt;package&gt; 查找 # 显示所有已经安装和可以安装的 rpm 包 yum list # 显示指定 rpm 包安装情况 yum list &lt;package&gt; # 显示 rpm 包详细信息 yum info &lt;package&gt; # 显示 rpm 包依赖情况 yum deplist &lt;package&gt; # 显示所有已安装的 rpm 包 yum list installed # 在所有已安装的 rpm 包中查找指定 rpm 包 yum list installed | grep &lt;package&gt; # 查找 rpm 包 yum search &lt;package&gt; 删除 # 删除指定的 rpm 软件包 rpm remove &lt;package&gt; # 删除指定的 rpm 软件包及其依赖 rpm autoremove &lt;package&gt; 清除缓存 # 清除缓存目录下的 rpm 包 yum clean &lt;package&gt; # 清除缓存目录下的 headers yum clean headers # 清除所有 yum clean all 参考 https://wangchujiang." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://FallingKid.github.io/blog/post/yum/" /><meta property="article:section" content="post" />
+<meta property="og:url" content="https://FallingKid.github.io/post/yum/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-08-02T16:04:50&#43;08:00" />
 <meta property="article:modified_time" content="2022-08-02T16:04:50&#43;08:00" />
 
@@ -77,13 +77,13 @@
       "@type": "ListItem",
       "position":  2 ,
       "name": "Posts",
-      "item": "https://FallingKid.github.io/blog/post/"
+      "item": "https://FallingKid.github.io/post/"
     }, 
     {
       "@type": "ListItem",
       "position":  3 ,
       "name": "Yum",
-      "item": "https://FallingKid.github.io/blog/post/yum/"
+      "item": "https://FallingKid.github.io/post/yum/"
     }
   ]
 }
@@ -105,14 +105,14 @@
   "dateModified": "2022-08-02T16:04:50+08:00",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://FallingKid.github.io/blog/post/yum/"
+    "@id": "https://FallingKid.github.io/post/yum/"
   },
   "publisher": {
     "@type": "Organization",
     "name": "My New Hugo Site",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://FallingKid.github.io/blog/favicon.ico"
+      "url": "https://FallingKid.github.io/favicon.ico"
     }
   }
 }
@@ -134,7 +134,7 @@
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="https://FallingKid.github.io/blog" accesskey="h" title="My New Hugo Site (Alt + H)">My New Hugo Site</a>
+            <a href="https://FallingKid.github.io" accesskey="h" title="My New Hugo Site (Alt + H)">My New Hugo Site</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -255,7 +255,7 @@
     </main>
     
 <footer class="footer">
-    <span>&copy; 2022 <a href="https://FallingKid.github.io/blog">My New Hugo Site</a></span>
+    <span>&copy; 2022 <a href="https://FallingKid.github.io">My New Hugo Site</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
