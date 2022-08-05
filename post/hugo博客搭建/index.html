@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
 <title>Hugo博客搭建 | FallingKid</title>
-<meta name="keywords" content="">
+<meta name="keywords" content="hugo, blog">
 <meta name="description" content="介绍 hugo 博客简单的搭建过程，基础命令以及如何部署到 GitHub 远端">
 <meta name="author" content="FallingKid">
 <link rel="canonical" href="https://FallingKid.github.io/post/hugo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">
@@ -96,7 +96,7 @@
   "name": "Hugo博客搭建",
   "description": "介绍 hugo 博客简单的搭建过程，基础命令以及如何部署到 GitHub 远端\n",
   "keywords": [
-    
+    "hugo", "blog"
   ],
   "articleBody": "介绍 hugo 博客简单的搭建过程，基础命令以及如何部署到 GitHub 远端\n安装 二进制（跨平台） 从Hugo Releases下载适合平台的最新版本，这里以0.100.0版本为例，如 64 位的 Linux 可以下载hugo_0.100.0_Linux-32bit.tar.gz，Windows 和 MacOS 类似\n下载好后，解压缩并移动到/usr/local/bin目录下\ntar -zxvf hugo_0.100.0_Linux-32bit.tar.gz mv hugo /usr/local/bin/ macOS macOS 可以使用 Homebrew直接安装（前提是安装了Homebrew）\nbrew install hugo 其它 使用hugo version查看 Hugo 版本，检查是否成功安装\n更多安装方法和详细过程建议阅读官方文档：Install Hugo\n附上 GitHub 地址：hugo\n部署 新建站点 找一个合适的目录（例如家目录~/），新建站点，siteName为站点目录名称\nhugo new site siteName 默认站点使用toml格式的配置文件，加上-f参数，配置文件使用 yml 格式\nhugo new site siteName -f yml 添加主题 不同主题安装方式不一定相同，可以去搜索相应主题的文档\n这里以PaperMod为例\n在站点目录（刚才新建站点生成的文件夹）下\ngit clone https://github.com/adityatelange/hugo-PaperMod themes/PaperMod --depth=1 官方文档有更多方法及主题更多介绍：hugo-PaperMod\n下载完成后，打开配置文件config.yml，添加主题配置项\ntheme: PaperMod 主题更新方式：\ncd theme/PaperMod git pull 添加文章 在站点目录下，新建一篇文章，如first-post.md\nhugo new post/first-post.md 文件会生成到content/post/first-post.md位置，文章中draft: true表示文章是一篇草稿，草稿默认无法部署，可以将其值修改为false，或在之后的部署时添加--buildDrafts以启用草稿\n启动服务 # 启动 hugo hugo server # 以指定主题启动 hugo server --theme=PaperMod # 同时启用草稿 hugo server --theme=PaperMod --buildDrafts 启动成功后，通过http://localhost:1313/可以在本地预览效果\n部署到 GitHub 部署到 Gitee 也可以，但需要实名认证，方法略有不同，这里就不介绍了\n首先需要在 GitHub 上新建一个空仓库，仓库名为UserName.github.io，其中UserName为自己GitHub的用户名\n仓库必须选择公开（Public），否则部署上去也访问不到\n其他选项默认即可，不用添加README.md\n仓库建好之后，在站点目录下，记得替换UserName\nhugo --theme=PaperMod --baseUrl=\"https://UserName.github.io\" --buildDrafts 注：第一次执行，--theme=PaperMod参数一定要加，不然等会访问可能会加载不出 css 文件\n然后进入生成的public目录下，将内容推送到 GitHub\ncd public git init git add . git commit -m \"提交信息\" # UserName 为自己 GitHub 的用户名，替换即可 git remote add origin https://github.com:UserName/UserName.github.io.git # 第一次 push 必须加上 -u master，以后再提交就只执行 git push 即可 git push origin -u master 推送完成后，访问https://UserName.github.io就可以看见博客内容了（GitHub 可能加载比较慢，需要多等一会儿）\n添加新文章 之后再添加新文章还是同样的方法，先新建文章\nhugo new post/second-post.md 然后修改内容，修改完成后\nhugo --theme=PaperMod --baseUrl=\"https://UserName.github.io\" --buildDrafts 记得替换UserName，如果不想显示草稿，不加--buildDrafts即可\n",
   "wordCount" : "167",
@@ -164,23 +164,23 @@
         </div>
         <ul id="menu">
             <li>
-                <a href="https://FallingKid.github.io/categories/" title="categories">
-                    <span>categories</span>
+                <a href="https://FallingKid.github.io/categories/" title="Categories">
+                    <span>Categories</span>
                 </a>
             </li>
             <li>
-                <a href="https://FallingKid.github.io/tags/" title="tags">
-                    <span>tags</span>
+                <a href="https://FallingKid.github.io/tags/" title="Tags">
+                    <span>Tags</span>
                 </a>
             </li>
             <li>
-                <a href="https://FallingKid.github.io/archive/" title="archive">
-                    <span>archive</span>
+                <a href="https://FallingKid.github.io/archives/" title="Archives">
+                    <span>Archives</span>
                 </a>
             </li>
             <li>
-                <a href="https://FallingKid.github.io/post/" title="post">
-                    <span>post</span>
+                <a href="https://FallingKid.github.io/post/" title="Post">
+                    <span>Post</span>
                 </a>
             </li>
         </ul>
@@ -302,6 +302,8 @@
 
   <footer class="post-footer">
     <ul class="post-tags">
+      <li><a href="https://FallingKid.github.io/tags/hugo/">hugo</a></li>
+      <li><a href="https://FallingKid.github.io/tags/blog/">blog</a></li>
     </ul>
 <nav class="paginav">
   <a class="prev" href="https://FallingKid.github.io/post/yum/">

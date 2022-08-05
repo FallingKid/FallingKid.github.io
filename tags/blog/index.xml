@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>blog on FallingKid</title>
+    <link>https://FallingKid.github.io/tags/blog/</link>
+    <description>Recent content in blog on FallingKid</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 02 Aug 2022 20:48:13 +0800</lastBuildDate><atom:link href="https://FallingKid.github.io/tags/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hugo博客搭建</title>
+      <link>https://FallingKid.github.io/post/hugo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</link>
+      <pubDate>Tue, 02 Aug 2022 20:48:13 +0800</pubDate>
+      
+      <guid>https://FallingKid.github.io/post/hugo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</guid>
+      <description>&lt;p&gt;介绍 hugo 博客简单的搭建过程，基础命令以及如何部署到 GitHub 远端&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

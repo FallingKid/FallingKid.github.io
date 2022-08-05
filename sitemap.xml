@@ -2,21 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://FallingKid.github.io/tags/command/</loc>
+    <lastmod>2022-08-04T23:25:37+08:00</lastmod>
+  </url><url>
     <loc>https://FallingKid.github.io/</loc>
+    <lastmod>2022-08-04T23:25:37+08:00</lastmod>
+  </url><url>
+    <loc>https://FallingKid.github.io/tags/linux/</loc>
     <lastmod>2022-08-04T23:25:37+08:00</lastmod>
   </url><url>
     <loc>https://FallingKid.github.io/post/</loc>
     <lastmod>2022-08-04T23:25:37+08:00</lastmod>
   </url><url>
+    <loc>https://FallingKid.github.io/tags/</loc>
+    <lastmod>2022-08-04T23:25:37+08:00</lastmod>
+  </url><url>
+    <loc>https://FallingKid.github.io/tags/yum/</loc>
+    <lastmod>2022-08-04T23:25:37+08:00</lastmod>
+  </url><url>
     <loc>https://FallingKid.github.io/post/yum/</loc>
     <lastmod>2022-08-04T23:25:37+08:00</lastmod>
+  </url><url>
+    <loc>https://FallingKid.github.io/tags/blog/</loc>
+    <lastmod>2022-08-02T20:48:13+08:00</lastmod>
+  </url><url>
+    <loc>https://FallingKid.github.io/tags/hugo/</loc>
+    <lastmod>2022-08-02T20:48:13+08:00</lastmod>
   </url><url>
     <loc>https://FallingKid.github.io/post/hugo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</loc>
     <lastmod>2022-08-02T20:48:13+08:00</lastmod>
   </url><url>
     <loc>https://FallingKid.github.io/categories/</loc>
-  </url><url>
-    <loc>https://FallingKid.github.io/tags/</loc>
   </url><url>
     <loc>https://FallingKid.github.io/archives/</loc>
   </url>

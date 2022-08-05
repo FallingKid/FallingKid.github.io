@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
 <title>Yum | FallingKid</title>
-<meta name="keywords" content="">
+<meta name="keywords" content="linux, command, yum">
 <meta name="description" content="Yum 常用命令和几个使用场景实例">
 <meta name="author" content="FallingKid">
 <link rel="canonical" href="https://FallingKid.github.io/post/yum/">
@@ -96,7 +96,7 @@
   "name": "Yum",
   "description": "Yum 常用命令和几个使用场景实例\n",
   "keywords": [
-    
+    "linux", "command", "yum"
   ],
   "articleBody": "Yum 常用命令和几个使用场景实例\n语法 yum [option] [command] [package] 选项 option -h：显示帮助信息 -y：对所有的提问都回答“yes” -c：指定配置文件 -q：安静模式 -v：详细模式 -d：设置调试等级（0-10） -e：设置错误等级（0-10） -R：设置 yum 处理一个命令的最大等待时间 -C：完全从缓存中运行，而不去下载或者更新任何头文件 命令 command install：安装 rpm 软件包 update：更新 rpm 软件包 check-update：检查是否有可用的更新 rpm 软件包 remove：删除 rpm 软件包 autoremove：删除 rpm 软件包及其依赖 list：显示软件包的信息 search：检查软件包的信息 info：显示指定的 rpm 软件包的描述信息和概要信息 clean：清理 yum 过期的缓存 shell：进入 yum 的 shell 提示符 localinstall：安装本地的 rpm 软件包 localupdate：显示本地 rpm 软件包进行更新 deplist：显示 rpm 软件包的所有依赖关系 实例 安装 # 安装 rpm 软件包 yum install # 安装多个 rpm 软件包 yum install , , 更新 # 检查是否有可用的更新 rpm 软件包 yum check-update # 全部更新 yum update # 更新指定 rpm 软件包 yum update 查找 # 显示所有已经安装和可以安装的 rpm 包 yum list # 显示指定 rpm 包安装情况 yum list # 显示 rpm 包详细信息 yum info # 显示 rpm 包依赖情况 yum deplist # 显示所有已安装的 rpm 包 yum list installed # 在所有已安装的 rpm 包中查找指定 rpm 包 yum list installed | grep # 查找 rpm 包 yum search 删除 # 删除指定的 rpm 软件包 rpm remove # 删除指定的 rpm 软件包及其依赖 rpm autoremove 清除缓存 # 清除缓存目录下的 rpm 包 yum clean # 清除缓存目录下的 headers yum clean headers # 清除所有 yum clean all 参考 https://wangchujiang.com/linux-command/c/yum.html\nhttps://www.cnblogs.com/hugetong/p/5921007.html\n",
   "wordCount" : "186",
@@ -164,23 +164,23 @@
         </div>
         <ul id="menu">
             <li>
-                <a href="https://FallingKid.github.io/categories/" title="categories">
-                    <span>categories</span>
+                <a href="https://FallingKid.github.io/categories/" title="Categories">
+                    <span>Categories</span>
                 </a>
             </li>
             <li>
-                <a href="https://FallingKid.github.io/tags/" title="tags">
-                    <span>tags</span>
+                <a href="https://FallingKid.github.io/tags/" title="Tags">
+                    <span>Tags</span>
                 </a>
             </li>
             <li>
-                <a href="https://FallingKid.github.io/archive/" title="archive">
-                    <span>archive</span>
+                <a href="https://FallingKid.github.io/archives/" title="Archives">
+                    <span>Archives</span>
                 </a>
             </li>
             <li>
-                <a href="https://FallingKid.github.io/post/" title="post">
-                    <span>post</span>
+                <a href="https://FallingKid.github.io/post/" title="Post">
+                    <span>Post</span>
                 </a>
             </li>
         </ul>
@@ -299,6 +299,9 @@
 
   <footer class="post-footer">
     <ul class="post-tags">
+      <li><a href="https://FallingKid.github.io/tags/linux/">linux</a></li>
+      <li><a href="https://FallingKid.github.io/tags/command/">command</a></li>
+      <li><a href="https://FallingKid.github.io/tags/yum/">yum</a></li>
     </ul>
 <nav class="paginav">
   <a class="next" href="https://FallingKid.github.io/post/hugo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">
