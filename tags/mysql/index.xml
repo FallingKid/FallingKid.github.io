@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>FallingKid</title>
-    <link>https://FallingKid.github.io/</link>
-    <description>Recent content on FallingKid</description>
+    <title>MySQL on FallingKid</title>
+    <link>https://FallingKid.github.io/tags/mysql/</link>
+    <description>Recent content in MySQL on FallingKid</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 01 Sep 2022 19:53:35 +0800</lastBuildDate><atom:link href="https://FallingKid.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 01 Sep 2022 19:53:35 +0800</lastBuildDate><atom:link href="https://FallingKid.github.io/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>MySQL笔记</title>
       <link>https://FallingKid.github.io/post/mysql%E7%AC%94%E8%AE%B0/</link>
@@ -18,25 +18,6 @@
 MySQL 4——InnoDB 引擎，增加事务处理、并、改进全文本搜索等的支持 MySQL 4.1——对函数库、子查询、集成帮助等的重要增加 MySQL 5——存储过程、触发器、游标、 视图）等 MySQL 命令行 常用命令、语句（执行时加;）
 命令/语句 作用 help [select | show | create | &amp;hellip;] 帮助信息 quit/exit 退出 MySQL 命令行 USE db_name 选择数据库 db_name SHOW DATABASES/SCHEMAS 列出所有数据库 SHOW TABLES 列出当前数据库中所有表 SHOW COLUMNS FOR tbl_name 列出 tbl_name 表中所有字段详细信息 {EXPLAIN | DESCRIBE | DESC} tbl_name 同上 SHOW CREATE TABLE tbl_name 显示 tbl_name 表创建语句 SHOW GRANTS 来显示授予用户（所有用户或特定用户）的安全权限 SHOW {CHARSET | CHARACTER SET} [like_or_where] 显示字符集 SHOW COLLATION [like_or_where] 显示排序规则 执行 SQL 脚本 source ~/create.</description>
     </item>
-    
-    <item>
-      <title>Yum</title>
-      <link>https://FallingKid.github.io/post/yum/</link>
-      <pubDate>Thu, 04 Aug 2022 23:25:37 +0800</pubDate>
-      
-      <guid>https://FallingKid.github.io/post/yum/</guid>
-      <description>&lt;p&gt;Yum 常用命令和几个使用场景实例&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Hugo博客搭建</title>
-      <link>https://FallingKid.github.io/post/hugo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</link>
-      <pubDate>Tue, 02 Aug 2022 20:48:13 +0800</pubDate>
-      
-      <guid>https://FallingKid.github.io/post/hugo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</guid>
-      <description>&lt;p&gt;介绍 hugo 博客简单的搭建过程，基础命令以及如何部署到 GitHub 远端&lt;/p&gt;</description>
-    </item>
-    
     
   </channel>
 </rss>

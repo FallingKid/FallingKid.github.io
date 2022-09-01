@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>MySQL笔记 | FallingKid</title>
+<meta name="keywords" content="MySQL">
+<meta name="description" content="官方文档 MySQL 5.7 参考手册
+版本 不同版本引入的主要更改
+MySQL 4——InnoDB 引擎，增加事务处理、并、改进全文本搜索等的支持 MySQL 4.1——对函数库、子查询、集成帮助等的重要增加 MySQL 5——存储过程、触发器、游标、 视图）等 MySQL 命令行 常用命令、语句（执行时加;）
+命令/语句 作用 help [select | show | create | &hellip;] 帮助信息 quit/exit 退出 MySQL 命令行 USE db_name 选择数据库 db_name SHOW DATABASES/SCHEMAS 列出所有数据库 SHOW TABLES 列出当前数据库中所有表 SHOW COLUMNS FOR tbl_name 列出 tbl_name 表中所有字段详细信息 {EXPLAIN | DESCRIBE | DESC} tbl_name 同上 SHOW CREATE TABLE tbl_name 显示 tbl_name 表创建语句 SHOW GRANTS 来显示授予用户（所有用户或特定用户）的安全权限 SHOW {CHARSET | CHARACTER SET} [like_or_where] 显示字符集 SHOW COLLATION [like_or_where] 显示排序规则 执行 SQL 脚本 source ~/create.">
+<meta name="author" content="FallingKid">
+<link rel="canonical" href="https://FallingKid.github.io/post/mysql%E7%AC%94%E8%AE%B0/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.bc1149f4a72aa4858d3a9f71462f75e5884ffe8073ea9d6d5761d5663d651e20.css" integrity="sha256-vBFJ9KcqpIWNOp9xRi915YhP/oBz6p1tV2HVZj1lHiA=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://FallingKid.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://FallingKid.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://FallingKid.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://FallingKid.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://FallingKid.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="MySQL笔记" />
+<meta property="og:description" content="官方文档 MySQL 5.7 参考手册
+版本 不同版本引入的主要更改
+MySQL 4——InnoDB 引擎，增加事务处理、并、改进全文本搜索等的支持 MySQL 4.1——对函数库、子查询、集成帮助等的重要增加 MySQL 5——存储过程、触发器、游标、 视图）等 MySQL 命令行 常用命令、语句（执行时加;）
+命令/语句 作用 help [select | show | create | &hellip;] 帮助信息 quit/exit 退出 MySQL 命令行 USE db_name 选择数据库 db_name SHOW DATABASES/SCHEMAS 列出所有数据库 SHOW TABLES 列出当前数据库中所有表 SHOW COLUMNS FOR tbl_name 列出 tbl_name 表中所有字段详细信息 {EXPLAIN | DESCRIBE | DESC} tbl_name 同上 SHOW CREATE TABLE tbl_name 显示 tbl_name 表创建语句 SHOW GRANTS 来显示授予用户（所有用户或特定用户）的安全权限 SHOW {CHARSET | CHARACTER SET} [like_or_where] 显示字符集 SHOW COLLATION [like_or_where] 显示排序规则 执行 SQL 脚本 source ~/create." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://FallingKid.github.io/post/mysql%E7%AC%94%E8%AE%B0/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-09-01T19:53:35&#43;08:00" />
+<meta property="article:modified_time" content="2022-09-01T19:53:35&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="MySQL笔记"/>
+<meta name="twitter:description" content="官方文档 MySQL 5.7 参考手册
+版本 不同版本引入的主要更改
+MySQL 4——InnoDB 引擎，增加事务处理、并、改进全文本搜索等的支持 MySQL 4.1——对函数库、子查询、集成帮助等的重要增加 MySQL 5——存储过程、触发器、游标、 视图）等 MySQL 命令行 常用命令、语句（执行时加;）
+命令/语句 作用 help [select | show | create | &hellip;] 帮助信息 quit/exit 退出 MySQL 命令行 USE db_name 选择数据库 db_name SHOW DATABASES/SCHEMAS 列出所有数据库 SHOW TABLES 列出当前数据库中所有表 SHOW COLUMNS FOR tbl_name 列出 tbl_name 表中所有字段详细信息 {EXPLAIN | DESCRIBE | DESC} tbl_name 同上 SHOW CREATE TABLE tbl_name 显示 tbl_name 表创建语句 SHOW GRANTS 来显示授予用户（所有用户或特定用户）的安全权限 SHOW {CHARSET | CHARACTER SET} [like_or_where] 显示字符集 SHOW COLLATION [like_or_where] 显示排序规则 执行 SQL 脚本 source ~/create."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "https://FallingKid.github.io/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "MySQL笔记",
+      "item": "https://FallingKid.github.io/post/mysql%E7%AC%94%E8%AE%B0/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "MySQL笔记",
+  "name": "MySQL笔记",
+  "description": "官方文档 MySQL 5.7 参考手册\n版本 不同版本引入的主要更改\nMySQL 4——InnoDB 引擎，增加事务处理、并、改进全文本搜索等的支持 MySQL 4.1——对函数库、子查询、集成帮助等的重要增加 MySQL 5——存储过程、触发器、游标、 视图）等 MySQL 命令行 常用命令、语句（执行时加;）\n命令/语句 作用 help [select | show | create | \u0026hellip;] 帮助信息 quit/exit 退出 MySQL 命令行 USE db_name 选择数据库 db_name SHOW DATABASES/SCHEMAS 列出所有数据库 SHOW TABLES 列出当前数据库中所有表 SHOW COLUMNS FOR tbl_name 列出 tbl_name 表中所有字段详细信息 {EXPLAIN | DESCRIBE | DESC} tbl_name 同上 SHOW CREATE TABLE tbl_name 显示 tbl_name 表创建语句 SHOW GRANTS 来显示授予用户（所有用户或特定用户）的安全权限 SHOW {CHARSET | CHARACTER SET} [like_or_where] 显示字符集 SHOW COLLATION [like_or_where] 显示排序规则 执行 SQL 脚本 source ~/create.",
+  "keywords": [
+    "MySQL"
+  ],
+  "articleBody": "官方文档 MySQL 5.7 参考手册\n版本 不同版本引入的主要更改\nMySQL 4——InnoDB 引擎，增加事务处理、并、改进全文本搜索等的支持 MySQL 4.1——对函数库、子查询、集成帮助等的重要增加 MySQL 5——存储过程、触发器、游标、 视图）等 MySQL 命令行 常用命令、语句（执行时加;）\n命令/语句 作用 help [select | show | create | …] 帮助信息 quit/exit 退出 MySQL 命令行 USE db_name 选择数据库 db_name SHOW DATABASES/SCHEMAS 列出所有数据库 SHOW TABLES 列出当前数据库中所有表 SHOW COLUMNS FOR tbl_name 列出 tbl_name 表中所有字段详细信息 {EXPLAIN | DESCRIBE | DESC} tbl_name 同上 SHOW CREATE TABLE tbl_name 显示 tbl_name 表创建语句 SHOW GRANTS 来显示授予用户（所有用户或特定用户）的安全权限 SHOW {CHARSET | CHARACTER SET} [like_or_where] 显示字符集 SHOW COLLATION [like_or_where] 显示排序规则 执行 SQL 脚本 source ~/create.sql MySQL 命令行自动补全 临时补全 mysql -uroot -p --auto-rehash 永久补全 vim /etc/my.cnf [mysql] auto-rehash 工具 mycli mac 安装\nbrew update \u0026\u0026 brew install mycli pip 安装（需要有 python 环境）\npip install mycli 启用\nmycli -uroot GitHub 地址\n数据类型 数据类型\n字符串类型 有两种基本的串类型——定长串（CHAR）和变长串（VARCHAR、TEXT），MySQL 处理定长列远比处理变长列快得多，且 MySQL 不允许对变长列（或一个列的可变部分）进行索引，这也会极大地影响性能\n数据类型 说明 CHAR[(M)] 固定长度字符串，M 的范围是 0 到 255，如果省略则默认为 1 VARCHAR(M) 可变长度字符串，M 的范围是 0 到 65535 TEXT[(M)] 最大长度为 65535 个字符的变长文本 TINYTEXT 同 TEXT，最大长度为 255 个字符的变长文本 MEDIUMTEXT 同 TEXT，最大长度为 16777215 个字符的变长文本 LONGTEXT 同 TEXT，最大长度为 4294967295 个字符的变长文本 ENUM 枚举 SET 组 不管使用何种形式的字符串数据类型，值都必须括在引号内（通常单引号更好）\nCHAR 在存储时始终使用指定长度的空格进行右填充\n除非启用了 PAD_CHAR_TO_FULL_LENGTH 模式，否则检索 CHAR 值时将删除尾随空格\nMySQL 遵循标准的 SQL 规范，并且不会从 VARCHAR 值中删除尾随空格\nVARCHAR 的有效最大长度取决于最大行大小和使用的字符集。例如，每个字符最多需要三个字节，则使用该字符集的 VARCHAR 列可以声明为最多 21，844 个字符。TEXT 同理\nMySQL 将 VARCHAR 值存储为 1 字节或 2 字节长度前缀加数据，将 TEXT 值存储为 2 字节长度前缀加数据，长度前缀指示值中的字节数\nNATIONAL VARCHAR 是定义 VARCHAR 列应使用某些预定义字符集的标准 SQL 方法，NVARCHAR 是 NATIONAL VARCHAR 的简写\n可以 TEXT 类型指定可选长度 M，如果这样做，MySQL 会将列创建为最小的 TEXT 类型，该类型足够大，可以容纳 M 个字符的值\n更多细节参考字符串数据类型语法\n数值类型 数据类型 说明 INT 或 INTEGER[(M)] 整数值，取值范围 [-2147483648, 2147483647] TINYINT[(M)] 整数值，取值范围 [-128, 127] SMALLINT[(M)] 整数值，取值范围 [-32768, 32767] MEDIUMINT[(M)] 整数值，取值范围 [-8388608, 8388607] BIGINT[(M)] 整数值，取值范围 [-9223372036854775808, 9223372036854775807] DECIMAL 或 DEC[(M[, D])] 精度可变的浮点值，M 是总位数（精度），D 是小数位数。M 最大为 65，如果省略则默认为 10，D 最大为 30，如果省略则默认为 0 FLOAT[(M[, D])] 单精度浮点数，是一个非标准的 MySQL 扩展 DOUBLE[(M[, D])] 双精度浮点数，是一个非标准的 MySQL 扩展 BIT[(M)] 位值类型，M 的范围是 1 到 64，表示每个值的位数，如果省略则默认为 1 BOOLEAN 或 BOOL 布尔标志，TINYINT(1) 的同义词，值为零被视为假值，非零值被视为真值 精确数值数据类型 INT、TINYINT 、SMALLINT 、MEDIUMINT 、BIGINT 、DECIMAL 近似数值数据类型 FLOAT、DOUBLE、REAL 在判断时，非零的布尔值视为真，如IF(2, 'true', 'false')的结果为true，但其并不一定与TRUE相等，如IF(2 = TRUE, 'true', 'false')的结果为false，因为TRUE和FALSE分别是1和0的别名 使用 FLOAT 可能会带来一些意想不到的问题，因为 MySQL 中的所有计算都是以双精度完成的 REAL 是 DOUBLE 的同义词，如果启用了 REAL_AS_FLOAT SQL 模式，则 REAL 是 FLOAT 的同义词 除 BIT 和 BOOLEAN 外，数值类型都可以有符号或无符号，默认为有符号，可使用UNSIGNED关键字可指定无符号 MySQL 中没有专门存储货币的数据类型，一般使用 DECIMAL(8, 2) 替代 日期和时间类型 数据类型 说明 DATE 日期 DATETIME[(fsp)] 日期和时间组合 TIME[(fsp)] 时间 YEAR[(4)] 4 位数字格式的年份 TIMESTAMP[(fsp)] 时间戳，存储为自纪元（ UTC）以来的秒数 每种类型的显示格式：\n数据类型 显示格式 支持范围 DATE ‘YYYY-MM-DD’ ‘1000-01-01’ 到 ‘9999-12-31’ DATETIME ‘YYYY-MM-DD hh:mm:ss[.fraction]’ ‘1000-01-01 00:00:00.000000’ 到 ‘9999-12-31 23:59:59.999999’ TIME ‘hh:mm:ss[.fraction]’ ‘-838:59:59.000000’ 到 ‘838:59:59.000000’ YEAR YYYY 1901 到 2155 TIMESTAMP ‘YYYY-MM-DD hh:mm:ss[.fraction]’ ‘1970-01-01 00:00:01.000000’ 到 ‘2038-01-19 03:14:07.999999’ YEAR（2） 数据类型已弃用， 在 MySQL 5.7.5 中删除了对它的支持 允许使用字符串或数字将值分配给 DATE、YEAR、TIME、DATETIME 列 DATETIME 、TIME 、TIMESTAMP 可给出范围为 [0, 6] 的可选 fsp 值，指定秒的小数部分精度，如果省略则默认为 0 二进制类型 二进制数据类型可存储任何数据（包括二进制信息），如图像、多媒体、字处理文档等\n数据类型 说明 BLOB[(M)] 最大长度为 65535 字节（64 KB） TINYBLOB 最大长度为 255 字节的 BLOB MEDIUMBLOB 最大长度为 16777215字节（16MB）的 BLOB LONGBLOB 最大长度为 4294967295字节（4GB）的 BLOB BINARY[(M)] 类似于 CHAR 类型，但存储二进制字节字符串，可选长度 M 表示列长度（以字节为单位），如果省略则默认为 1 VARBINARY(M) 类似于 VARCHAR 类型，但存储二进制字节字符串，M 表示列长度（以字节为单位） 检索数据 SELECT 语句\nSELECT [ALL | DISTINCT | DISTINCTROW ] [HIGH_PRIORITY] [STRAIGHT_JOIN] [SQL_SMALL_RESULT] [SQL_BIG_RESULT] [SQL_BUFFER_RESULT] [SQL_CACHE | SQL_NO_CACHE] [SQL_CALC_FOUND_ROWS] select_expr [, select_expr] ... [into_option] [FROM table_references [PARTITION partition_list]] [WHERE where_condition] [GROUP BY {col_name | expr | position} [ASC | DESC], ... [WITH ROLLUP]] [HAVING where_condition] [ORDER BY {col_name | expr | position} [ASC | DESC], ...] [LIMIT {[offset,] row_count | row_count OFFSET offset}] [PROCEDURE procedure_name(argument_list)] [into_option] [FOR UPDATE | LOCK IN SHARE MODE] into_option: { INTO OUTFILE 'file_name' [CHARACTER SET charset_name] export_options | INTO DUMPFILE 'file_name' | INTO var_name [, var_name] ... } DISTINCT ALL | DISTINCT | DISTINCTROW DISTINCT修饰符指定是否应返回重复的行\nALL（默认值）指定应返回所有匹配的行，包括重复行；DISTINCT指定从结果集中删除重复行，DISTINCTROW是DISTINCT的同义词\n使用时放在SELECT关键字之后\nSELECT DISTINCT col1, col2 from tbl LIMIT LIMIT {[offset,] row_count | row_count OFFSET offset} LIMIT子句限制SELECT语句返回的行数\n它接受一个或两个数字参数，第一个参数指定要返回的第一行的偏移量，第二个参数指定要返回的最大行数，初始行的偏移量为 0（不是 1）\nSELECT * FROM tbl LIMIT 5; # 检索前 5 行 SELECT * FROM tbl LIMIT 5,10; # 检索 6-15 行 为了与 PostgreSQL 兼容，MySQL 也支持LIMIT row_count OFFSET offset\nSELECT * FROM tbl LIMIT 10 OFFSET 5; # 检索 6-15 行 ORDER BY ORDER BY {col_name | expr | position} [ASC | DESC], ... ORDER BY子句对SELECT检索结果按照列名、列别名或列位置进行排序输出\nSELECT college, region, seed FROM tournament ORDER BY region, seed; SELECT college, region AS r, seed AS s FROM tournament ORDER BY r, s; SELECT college, region, seed FROM tournament ORDER BY 2, 3; 在按多个列排序时，排序完全按照所规定的顺序进行，在上述示例中，仅在多个行具有相同的region时才对数据按seed进行排序，否则不会按seed排序\nORDER BY默认为升序（ASC），通过指定DESC来进行降序排序\nSELECT college, region, seed FROM tournament ORDER BY region DESC, seed; DESC关键字只应用到直接位于其前面的列名，在上述示例中，只对region列指定DESC，因此，region列按降序排序，seed列按升序排序\n如果想在多个列上进行降序排序，必须对每个列指定DESC关键字\nGROUP BY GROUP BY {col_name | expr | position} [ASC | DESC], ... [WITH ROLLUP] GROUP BY子句按照列名、列别名或列位置进行分组\n过滤数据 算术运算符 运算符 说明 + 加 - 减 * 乘 / 或 DIV 除 % 或 MOD 取余 在除法运算和模运算中，如果除数为 0，将是非法除数，返回结果为 NULL\n比较运算符 运算符 说明 = 等于 \u003c\u003e 不等于 != 不等于 \u003c 小于 \u003c= 小于等于 \u003e 大于 \u003e= 大于等于 BETWEEN 在两值之间；使用AND连接；闭区间 IS NULL 为空 IS NOT NULL 不为空 IN 在集合中；圆括号中由逗号分隔 NOT IN 不在集合中 LIKE 模糊匹配 REGEXP 或 RLIKE 正则匹配 LIKE 通配符 %匹配任何字符出现任意次数（包括 0 个字符），无法匹配NULL _匹配任意单个字符 通配符搜索的处理一般要比其他搜索所花时间更长，若非必要，尽量不要使用通配符\n在确实需要使用通配符时，若非必要，不要把它们用在搜索模式的开始处，这样搜索起来是最慢的\nREGEXP MySQL 仅支持多数正则表达式实现的一个很小的子集\n^匹配输入字符串的开始位置 $匹配输入字符串的结束位置 .匹配除\\n之外的任何单个字符 [...]匹配所包含的任意一个字符 [^...]匹配未包含的任意字符 |匹配其中之一 *匹配前面的子表达式零次或多次 +匹配前面的子表达式一次或多次，等价于{1,} ?匹配前面的子表达式零次或一次，等价于{0, 1} {n}匹配确定的 n 次（n 是一个非负整数） {n, m}最少匹配 n 次且最多匹配 m 次（n 和 m 均为非负整数且 n \u003c= m） 匹配需要转义的特殊字符时，使用双反斜杠\\\\，包括一些非打印字符\n\\\\n换行 \\\\r回车 \\\\t制表 \\\\v纵向制表 如果使用的字符集不区分大小写，而想要在匹配时区分大小写，可使用BINARY关键字\n... WHERE field LIKE BINARY '...' ... WHERE field REGEXP BINARY '...' LIKE 和 REGEXP 区别 LIKE匹配整个列，如果需要匹配的文本仅是列值的一部分，LIKE将不会匹配该列值，而REGEXP则会匹配该列值。REGEXP若要匹配整个列值，使用^和$定位符即可\n逻辑运算符 运算符 说明 NOT 或 ! 逻辑非 AND 或 \u0026\u0026 逻辑与 OR 或 || 逻辑或 XOR 逻辑异或 位运算符 运算符 说明 \u0026 按位与 | 按位或 ^ 按位异或 ~ 按位取反 « 左移 » 右移 位运算符是在二进制数上进行计算的运算符，会先将操作数变成二进制数，进行位运算，然后再将计算结果从二进制数变回十进制数\n函数 函数和运算符\n常用字符串函数 函数 说明 CONCAT(str1, str2, …) 返回由连接参数产生的字符串 TRIM([remstr FROM] str) 返回删除前导和尾随空格的字符串 LTRIM(str) 或 RTRIM(str) 返回删除前导或尾随空格的字符串 LEFT(str, len) 或 RIGHT(str, len) 返回字符串 str 最左边或最右边的 len 个字符 LENGTH(str) 返回字符串长度 CHAR_LENGTH(str) 或 CHARACTER_LENGTH(str) 返回字符串长度 UPPER(str) 或 UCASE(str) 返回所有字符都变为大写的字符串 LOWER(str) 或 LCASE(str) 返回所有字符都变为小写的字符串 SUBSTRING(str, pos) 返回从 pos 位置开始的子串 SUBSTRING(str, pos, len) 返回从 pos 位置开始长度为 len 的子串 LOCATE(substr, str) 返回子字符串第一次出现的位置，未找到则返回 0 LOCATE(substr, str, pos) 返回子字符串从 pos 位置开始第一次出现的位置 一般，字符串函数中\n如果参数有NULL，返回的结果也为NULL 参数中的数值类型将被转换成它的等价的非二进制字符串形式 LENGTH(str) LENGTH() 以字节为单位，一个多字节字符计为多个字节，意味着对于包含五个 2 字节字符的字符串， LENGTH() 返回 10，而 CHAR_LENGTH() 返回 5\nSELECT LENGTH('中文'); -- 6 SELECT CHAR_LENGTH('中文'); -- 2 常用日期和时间函数 函数 说明 NOW([fsp]) 返回当前日期和时间 CURDATE() 或 CURRENT_DATE() 返回当前日期 CURTIME([fsp]) 或 CURRENT_TIME([fsp]) 返回当前时间 ADDDATE(date, days) 返回增加或减少一定天数的日期 ADDTIME(expr1, expr2) expr2 为整数时，返回增加或减少一定秒数的时间 DATE_FORMAT(date, format) 根据 format 格式化 date DATEDIFF(expr1, expr2) 返回两个日期之间的天数 fsp 指定秒的小数部分精度，范围 [0, 6] 在存储的函数或触发器中， NOW() 返回函数或触发语句开始执行的时间，而 SYSDATE() 返回它执行的时间 SELECT NOW(), SLEEP(2), NOW(); +---------------------+----------+---------------------+ | NOW() | SLEEP(2) | NOW() | +---------------------+----------+---------------------+ | 2022-08-30 20:46:04 | 0 | 2022-08-30 20:46:04 | +---------------------+----------+---------------------+ SELECT SYSDATE(), SLEEP(2), SYSDATE(); +---------------------+----------+---------------------+ | SYSDATE() | SLEEP(2) | SYSDATE() | +---------------------+----------+---------------------+ | 2022-08-30 20:47:38 | 0 | 2022-08-30 20:47:40 | +---------------------+----------+---------------------+ DATE_FORMAT 中几个常用说明符 %Y(%y) 年份，数字，四位（两位） %M(%m)英文月份名称（月份，数字） %D(%d)带英文后缀的月份中的某天（月份中的日期，数字） %H(%h)小时，00..23（00..12） %S(%s)秒，00..59（00..59） 常用数值处理函数 函数 说明 ABS(X) 返回绝对值 MOD(N, M) 模运算，返回 N 除以 M 的余数 RAND([N]) 返回 0 到 1 之间到随机浮点数（N 为种子值） CEIL(X) 或 CEILING(X) 返回不小于 X 的最小整数值 FLOOR(X) 返回不大于 X 的最大整数值 TRUNCATE(X, D) 返回数字 X，截断到 D 小数位 MOD(N, 0) 返回NULL 想要获取[i, j)之间到随机整数，使用FLOOR(i + RAND() * (j − i)) TRUNCATE(X, D) 中 D 可以为负数，使小数点左边 D 位变为零 聚合函数 函数 说明 AVG([DISTINCT] expr) 返回平均值 COUNT([DISTINCT] expr) 返回非 NULL 值的计数 MAX([DISTINCT] expr) 返回最大值 MIN([DISTINCT] expr) 返回最小值 SUM([DISTINCT] expr) 返回总和 GROUP_CONCAT([DISTINCT] expr) 返回非 NULL 值连接后的字符串 除非另有说明，否则聚合函数会忽略NULL值，COUNT(*) 除外 GROUP_CONCAT GROUP_CONCAT([DISTINCT] expr [,expr ...] [ORDER BY {unsigned_integer | col_name | expr} [ASC | DESC] [,col_name ...]] [SEPARATOR str_val]) 默认分隔符为逗号(,)，使用 SEPARATOR 显示指定分隔符\n存储过程 存储对象\n创建存储过程 CREATE PROCEDURE procName( proc_parameter param_name1 type, proc_parameter param_name2 type, ... ) BEGIN Statement1; Statement2; ... END; proc_parameter取值[ IN | OUT | INOUT ]，若没有指定，默认为IN\n无论是否有参数，()都不可省略\n在参数列表()后可使用COMMENT添加备注信息\n在存储过程体中，可使用DECLARE定义局部变量，必须指定变量名和变量类型，如DECLARE variable INT，也支持可选的默认值，如DECLARE variable INT DEFAULT 0\n如果有变量声明，所有变量声明必须位于第一条非声明语句之前\n删除存储过程 DROP PROCEDURE proName; -- 仅当存在时删除 DROP PROCEDURE IF EXISTS proName; 执行存储过程 CALL proName(); 无论是否传递参数，()都不可省略\n检查存储过程 为显示用来创建一个存储过程的CREATE语句，使用以下命令\nSHOW CREATE PROCEDURE proName; 为获得包括何时、由谁创建等详细信息的存储过程列表，使用以下命令\nSHOW PROCEDURE STATUS; 如果在CREATE PROCEDURE语句中包含了COMMENT，则会在该语句的结果中显示出来\n参数 MySQL 支持 IN（传递给存储过程）、OUT（从存储过程传出）、INOUT（对存储过程传入和传出）类型的参数\n不能通过一个参数返回多个行和列\n变量 定义变量有两种方式\n使用set或select直接赋值，变量名以@开头，如set @vari=0\n可以在一个会话的任何地方声明，作用域是整个会话，称为会话变量\n以DECLARE关键字声明的变量，只能在存储过程中使用，称为存储过程变量，如DECLARE vari INT DEFAULT 0\n二者的区别是，在调用存储过程时，以DECLARE声明的变量都会被初始化为NULL。而会话变量（即@开头的变量）则不会被再初始化，在一个会话内，只须初始化一次，之后在会话内都是对上一次计算的结果，就相当于在是这个会话内的全局变量\n在存储过程体中，声明的变量名不能和需要用到的表中的字段名相同，防止歧义\n标签 MySQL 不支持return语句，常使用标签和leave来退出存储过程\nCREATE PROCEDURE proName(...) label: BEGIN ... leave label; ... END; 注：label: BEGIN，冒号后必须有空格！\n",
+  "wordCount" : "1186",
+  "inLanguage": "en",
+  "datePublished": "2022-09-01T19:53:35+08:00",
+  "dateModified": "2022-09-01T19:53:35+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "FallingKid"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://FallingKid.github.io/post/mysql%E7%AC%94%E8%AE%B0/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "FallingKid",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://FallingKid.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://FallingKid.github.io" accesskey="h" title="FallingKid (Alt + H)">FallingKid</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://FallingKid.github.io/categories/" title="Categories">
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://FallingKid.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://FallingKid.github.io/post/" title="Post">
+                    <span>Post</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://FallingKid.github.io">Home</a>&nbsp;»&nbsp;<a href="https://FallingKid.github.io/post/">Posts</a></div>
+    <h1 class="post-title">
+      MySQL笔记
+    </h1>
+    <div class="post-meta"><span title='2022-09-01 19:53:35 +0800 CST'>2022-09-01 07:53:35 PM +0800</span>&nbsp;·&nbsp;FallingKid
+
+</div>
+  </header> <div class="toc">
+    <details  open>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#官方文档">官方文档</a></li>
+    <li><a href="#版本">版本</a></li>
+    <li><a href="#mysql-命令行">MySQL 命令行</a>
+      <ul>
+        <li><a href="#执行-sql-脚本">执行 SQL 脚本</a></li>
+        <li><a href="#mysql-命令行自动补全">MySQL 命令行自动补全</a></li>
+      </ul>
+    </li>
+    <li><a href="#数据类型">数据类型</a>
+      <ul>
+        <li><a href="#字符串类型">字符串类型</a></li>
+        <li><a href="#数值类型">数值类型</a></li>
+        <li><a href="#日期和时间类型">日期和时间类型</a></li>
+        <li><a href="#二进制类型">二进制类型</a></li>
+      </ul>
+    </li>
+    <li><a href="#检索数据">检索数据</a>
+      <ul>
+        <li><a href="#distinct">DISTINCT</a></li>
+        <li><a href="#limit">LIMIT</a></li>
+        <li><a href="#order-by">ORDER BY</a></li>
+        <li><a href="#group-by">GROUP BY</a></li>
+      </ul>
+    </li>
+    <li><a href="#过滤数据">过滤数据</a>
+      <ul>
+        <li><a href="#算术运算符">算术运算符</a></li>
+        <li><a href="#比较运算符">比较运算符</a></li>
+        <li><a href="#逻辑运算符">逻辑运算符</a></li>
+        <li><a href="#位运算符">位运算符</a></li>
+      </ul>
+    </li>
+    <li><a href="#函数">函数</a>
+      <ul>
+        <li><a href="#常用字符串函数">常用字符串函数</a></li>
+        <li><a href="#常用日期和时间函数">常用日期和时间函数</a></li>
+        <li><a href="#常用数值处理函数">常用数值处理函数</a></li>
+        <li><a href="#聚合函数">聚合函数</a></li>
+      </ul>
+    </li>
+    <li><a href="#存储过程">存储过程</a>
+      <ul>
+        <li><a href="#创建存储过程">创建存储过程</a></li>
+        <li><a href="#删除存储过程">删除存储过程</a></li>
+        <li><a href="#执行存储过程">执行存储过程</a></li>
+        <li><a href="#检查存储过程">检查存储过程</a></li>
+        <li><a href="#参数">参数</a></li>
+        <li><a href="#变量">变量</a></li>
+        <li><a href="#标签">标签</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h2 id="官方文档">官方文档<a hidden class="anchor" aria-hidden="true" href="#官方文档">#</a></h2>
+<p><a href="https://dev.mysql.com/doc/refman/5.7/en/">MySQL 5.7 参考手册</a></p>
+<h2 id="版本">版本<a hidden class="anchor" aria-hidden="true" href="#版本">#</a></h2>
+<p>不同版本引入的主要更改</p>
+<ul>
+<li>MySQL 4——InnoDB 引擎，增加事务处理、并、改进全文本搜索等的支持</li>
+<li>MySQL 4.1——对函数库、子查询、集成帮助等的重要增加</li>
+<li>MySQL 5——存储过程、触发器、游标、 视图）等</li>
+</ul>
+<h2 id="mysql-命令行">MySQL 命令行<a hidden class="anchor" aria-hidden="true" href="#mysql-命令行">#</a></h2>
+<p>常用命令、语句（执行时加<code>;</code>）</p>
+<table>
+<thead>
+<tr>
+<th>命令/语句</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>help [select | show | create | &hellip;]</td>
+<td>帮助信息</td>
+</tr>
+<tr>
+<td>quit/exit</td>
+<td>退出 MySQL 命令行</td>
+</tr>
+<tr>
+<td>USE db_name</td>
+<td>选择数据库 db_name</td>
+</tr>
+<tr>
+<td>SHOW DATABASES/SCHEMAS</td>
+<td>列出所有数据库</td>
+</tr>
+<tr>
+<td>SHOW TABLES</td>
+<td>列出当前数据库中所有表</td>
+</tr>
+<tr>
+<td>SHOW COLUMNS FOR tbl_name</td>
+<td>列出 tbl_name 表中所有字段详细信息</td>
+</tr>
+<tr>
+<td>{EXPLAIN | DESCRIBE | DESC} tbl_name</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>SHOW CREATE TABLE tbl_name</td>
+<td>显示 tbl_name 表创建语句</td>
+</tr>
+<tr>
+<td>SHOW GRANTS</td>
+<td>来显示授予用户（所有用户或特定用户）的安全权限</td>
+</tr>
+<tr>
+<td>SHOW {CHARSET | CHARACTER SET} [like_or_where]</td>
+<td>显示字符集</td>
+</tr>
+<tr>
+<td>SHOW COLLATION  [like_or_where]</td>
+<td>显示排序规则</td>
+</tr>
+</tbody>
+</table>
+<h3 id="执行-sql-脚本">执行 SQL 脚本<a hidden class="anchor" aria-hidden="true" href="#执行-sql-脚本">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">source</span> <span style="color:#f92672">~/</span><span style="color:#66d9ef">create</span>.<span style="color:#66d9ef">sql</span>
+</span></span></code></pre></div><h3 id="mysql-命令行自动补全">MySQL 命令行自动补全<a hidden class="anchor" aria-hidden="true" href="#mysql-命令行自动补全">#</a></h3>
+<ul>
+<li>临时补全</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>mysql <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p <span style="color:#75715e">--auto-rehash
+</span></span></span></code></pre></div><ul>
+<li>永久补全</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>vim <span style="color:#f92672">/</span>etc<span style="color:#f92672">/</span>my.cnf
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[mysql]
+</span></span><span style="display:flex;"><span>auto<span style="color:#f92672">-</span>rehash
+</span></span></code></pre></div><ul>
+<li>工具 mycli</li>
+</ul>
+<p>mac 安装</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>brew update <span style="color:#f92672">&amp;&amp;</span> brew install mycli
+</span></span></code></pre></div><p>pip 安装（需要有 python 环境）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>pip install mycli
+</span></span></code></pre></div><p>启用</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>mycli -uroot
+</span></span></code></pre></div><p><a href="https://github.com/dbcli/mycli">GitHub 地址</a></p>
+<h2 id="数据类型">数据类型<a hidden class="anchor" aria-hidden="true" href="#数据类型">#</a></h2>
+<p><a href="https://dev.mysql.com/doc/refman/5.7/en/data-types.html">数据类型</a></p>
+<h3 id="字符串类型">字符串类型<a hidden class="anchor" aria-hidden="true" href="#字符串类型">#</a></h3>
+<p>有两种基本的串类型——定长串（CHAR）和变长串（VARCHAR、TEXT），MySQL 处理定长列远比处理变长列快得多，且 MySQL 不允许对变长列（或一个列的可变部分）进行索引，这也会极大地影响性能</p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CHAR[(M)]</td>
+<td>固定长度字符串，M 的范围是 0 到 255，如果省略则默认为 1</td>
+</tr>
+<tr>
+<td>VARCHAR(M)</td>
+<td>可变长度字符串，M 的范围是 0 到 65535</td>
+</tr>
+<tr>
+<td>TEXT[(M)]</td>
+<td>最大长度为 65535 个字符的变长文本</td>
+</tr>
+<tr>
+<td>TINYTEXT</td>
+<td>同 TEXT，最大长度为 255  个字符的变长文本</td>
+</tr>
+<tr>
+<td>MEDIUMTEXT</td>
+<td>同 TEXT，最大长度为  16777215  个字符的变长文本</td>
+</tr>
+<tr>
+<td>LONGTEXT</td>
+<td>同 TEXT，最大长度为  4294967295  个字符的变长文本</td>
+</tr>
+<tr>
+<td>ENUM</td>
+<td>枚举</td>
+</tr>
+<tr>
+<td>SET</td>
+<td>组</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p>不管使用何种形式的字符串数据类型，值都必须括在引号内（通常单引号更好）</p>
+</li>
+<li>
+<p>CHAR 在存储时始终使用指定长度的空格进行右填充</p>
+</li>
+<li>
+<p>除非启用了 PAD_CHAR_TO_FULL_LENGTH 模式，否则检索 CHAR 值时将删除尾随空格</p>
+</li>
+<li>
+<p>MySQL 遵循标准的 SQL 规范，并且不会从 VARCHAR 值中删除尾随空格</p>
+</li>
+<li>
+<p>VARCHAR 的有效最大长度取决于最大行大小和使用的字符集。例如，每个字符最多需要三个字节，则使用该字符集的 VARCHAR 列可以声明为最多 21，844 个字符。TEXT 同理</p>
+</li>
+<li>
+<p>MySQL 将 VARCHAR 值存储为 1 字节或 2 字节长度前缀加数据，将 TEXT 值存储为 2 字节长度前缀加数据，长度前缀指示值中的字节数</p>
+</li>
+<li>
+<p>NATIONAL VARCHAR 是定义 VARCHAR 列应使用某些预定义字符集的标准 SQL 方法，NVARCHAR 是 NATIONAL VARCHAR 的简写</p>
+</li>
+<li>
+<p>可以 TEXT 类型指定可选长度 M，如果这样做，MySQL 会将列创建为最小的 TEXT 类型，该类型足够大，可以容纳 M 个字符的值</p>
+</li>
+<li>
+<p>更多细节参考<a href="https://dev.mysql.com/doc/refman/5.7/en/string-type-syntax.html">字符串数据类型语法</a></p>
+</li>
+</ul>
+<h3 id="数值类型">数值类型<a hidden class="anchor" aria-hidden="true" href="#数值类型">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>INT 或 INTEGER[(M)]</td>
+<td>整数值，取值范围 [-2147483648, 2147483647]</td>
+</tr>
+<tr>
+<td>TINYINT[(M)]</td>
+<td>整数值，取值范围 [-128, 127]</td>
+</tr>
+<tr>
+<td>SMALLINT[(M)]</td>
+<td>整数值，取值范围 [-32768, 32767]</td>
+</tr>
+<tr>
+<td>MEDIUMINT[(M)]</td>
+<td>整数值，取值范围 [-8388608, 8388607]</td>
+</tr>
+<tr>
+<td>BIGINT[(M)]</td>
+<td>整数值，取值范围 [-9223372036854775808, 9223372036854775807]</td>
+</tr>
+<tr>
+<td>DECIMAL 或 DEC[(M[, D])]</td>
+<td>精度可变的浮点值，M 是总位数（精度），D 是小数位数。M 最大为 65，如果省略则默认为 10，D 最大为 30，如果省略则默认为 0</td>
+</tr>
+<tr>
+<td>FLOAT[(M[, D])]</td>
+<td>单精度浮点数，是一个非标准的 MySQL 扩展</td>
+</tr>
+<tr>
+<td>DOUBLE[(M[, D])]</td>
+<td>双精度浮点数，是一个非标准的 MySQL 扩展</td>
+</tr>
+<tr>
+<td>BIT[(M)]</td>
+<td>位值类型，M 的范围是 1 到 64，表示每个值的位数，如果省略则默认为 1</td>
+</tr>
+<tr>
+<td>BOOLEAN 或 BOOL</td>
+<td>布尔标志，TINYINT(1) 的同义词，值为零被视为假值，非零值被视为真值</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>精确数值数据类型 INT、TINYINT 、SMALLINT 、MEDIUMINT 、BIGINT 、DECIMAL</li>
+<li>近似数值数据类型 FLOAT、DOUBLE、REAL</li>
+<li>在判断时，非零的布尔值视为真，如<code>IF(2, 'true', 'false')</code>的结果为<code>true</code>，但其并不一定与<code>TRUE</code>相等，如<code>IF(2 = TRUE, 'true', 'false')</code>的结果为<code>false</code>，因为<code>TRUE</code>和<code>FALSE</code>分别是<code>1</code>和<code>0</code>的别名</li>
+<li>使用 FLOAT 可能会带来一些意想不到的问题，因为 MySQL 中的所有计算都是以双精度完成的</li>
+<li>REAL 是 DOUBLE 的同义词，如果启用了 REAL_AS_FLOAT SQL 模式，则 REAL 是 FLOAT 的同义词</li>
+<li>除 BIT 和 BOOLEAN 外，数值类型都可以有符号或无符号，默认为有符号，可使用<code>UNSIGNED</code>关键字可指定无符号</li>
+<li>MySQL 中没有专门存储货币的数据类型，一般使用 DECIMAL(8, 2) 替代</li>
+</ul>
+<h3 id="日期和时间类型">日期和时间类型<a hidden class="anchor" aria-hidden="true" href="#日期和时间类型">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DATE</td>
+<td>日期</td>
+</tr>
+<tr>
+<td>DATETIME[(fsp)]</td>
+<td>日期和时间组合</td>
+</tr>
+<tr>
+<td>TIME[(fsp)]</td>
+<td>时间</td>
+</tr>
+<tr>
+<td>YEAR[(4)]</td>
+<td>4 位数字格式的年份</td>
+</tr>
+<tr>
+<td>TIMESTAMP[(fsp)]</td>
+<td>时间戳，存储为自纪元（ UTC）以来的秒数</td>
+</tr>
+</tbody>
+</table>
+<p>每种类型的显示格式：</p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>显示格式</th>
+<th>支持范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DATE</td>
+<td>&lsquo;YYYY-MM-DD&rsquo;</td>
+<td>&lsquo;1000-01-01&rsquo; 到 &lsquo;9999-12-31&rsquo;</td>
+</tr>
+<tr>
+<td>DATETIME</td>
+<td>&lsquo;YYYY-MM-DD hh:mm:ss[.fraction]&rsquo;</td>
+<td>&lsquo;1000-01-01 00:00:00.000000&rsquo; 到 &lsquo;9999-12-31 23:59:59.999999&rsquo;</td>
+</tr>
+<tr>
+<td>TIME</td>
+<td>&lsquo;hh:mm:ss[.fraction]&rsquo;</td>
+<td>&lsquo;-838:59:59.000000&rsquo; 到 &lsquo;838:59:59.000000&rsquo;</td>
+</tr>
+<tr>
+<td>YEAR</td>
+<td>YYYY</td>
+<td>1901 到 2155</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>&lsquo;YYYY-MM-DD hh:mm:ss[.fraction]&rsquo;</td>
+<td>&lsquo;1970-01-01 00:00:01.000000&rsquo; 到 &lsquo;2038-01-19 03:14:07.999999&rsquo;</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>YEAR（2） 数据类型已弃用， 在 MySQL 5.7.5 中删除了对它的支持</li>
+<li>允许使用字符串或数字将值分配给 DATE、YEAR、TIME、DATETIME  列</li>
+<li>DATETIME 、TIME 、TIMESTAMP 可给出范围为 [0, 6] 的可选 fsp 值，指定秒的小数部分精度，如果省略则默认为 0</li>
+</ul>
+<h3 id="二进制类型">二进制类型<a hidden class="anchor" aria-hidden="true" href="#二进制类型">#</a></h3>
+<p>二进制数据类型可存储任何数据（包括二进制信息），如图像、多媒体、字处理文档等</p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BLOB[(M)]</td>
+<td>最大长度为  65535 字节（64 KB）</td>
+</tr>
+<tr>
+<td>TINYBLOB</td>
+<td>最大长度为 255 字节的 BLOB</td>
+</tr>
+<tr>
+<td>MEDIUMBLOB</td>
+<td>最大长度为 16777215字节（16MB）的 BLOB</td>
+</tr>
+<tr>
+<td>LONGBLOB</td>
+<td>最大长度为 4294967295字节（4GB）的 BLOB</td>
+</tr>
+<tr>
+<td>BINARY[(M)]</td>
+<td>类似于 CHAR 类型，但存储二进制字节字符串，可选长度 M 表示列长度（以字节为单位），如果省略则默认为 1</td>
+</tr>
+<tr>
+<td>VARBINARY(M)</td>
+<td>类似于 VARCHAR 类型，但存储二进制字节字符串，M 表示列长度（以字节为单位）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="检索数据">检索数据<a hidden class="anchor" aria-hidden="true" href="#检索数据">#</a></h2>
+<p><a href="https://dev.mysql.com/doc/refman/5.7/en/select.html">SELECT 语句</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span>
+</span></span><span style="display:flex;"><span>    [<span style="color:#66d9ef">ALL</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">DISTINCT</span> <span style="color:#f92672">|</span> DISTINCTROW ]
+</span></span><span style="display:flex;"><span>    [HIGH_PRIORITY]
+</span></span><span style="display:flex;"><span>    [STRAIGHT_JOIN]
+</span></span><span style="display:flex;"><span>    [SQL_SMALL_RESULT] [SQL_BIG_RESULT] [SQL_BUFFER_RESULT]
+</span></span><span style="display:flex;"><span>    [SQL_CACHE <span style="color:#f92672">|</span> SQL_NO_CACHE] [SQL_CALC_FOUND_ROWS]
+</span></span><span style="display:flex;"><span>    select_expr [, select_expr] ...
+</span></span><span style="display:flex;"><span>    [into_option]
+</span></span><span style="display:flex;"><span>    [<span style="color:#66d9ef">FROM</span> table_references
+</span></span><span style="display:flex;"><span>      [PARTITION partition_list]]
+</span></span><span style="display:flex;"><span>    [<span style="color:#66d9ef">WHERE</span> where_condition]
+</span></span><span style="display:flex;"><span>    [<span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> <span style="color:#960050;background-color:#1e0010">{</span>col_name <span style="color:#f92672">|</span> expr <span style="color:#f92672">|</span> <span style="color:#66d9ef">position</span><span style="color:#960050;background-color:#1e0010">}</span>
+</span></span><span style="display:flex;"><span>      [<span style="color:#66d9ef">ASC</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">DESC</span>], ... [<span style="color:#66d9ef">WITH</span> <span style="color:#66d9ef">ROLLUP</span>]]
+</span></span><span style="display:flex;"><span>    [<span style="color:#66d9ef">HAVING</span> where_condition]
+</span></span><span style="display:flex;"><span>    [<span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> <span style="color:#960050;background-color:#1e0010">{</span>col_name <span style="color:#f92672">|</span> expr <span style="color:#f92672">|</span> <span style="color:#66d9ef">position</span><span style="color:#960050;background-color:#1e0010">}</span>
+</span></span><span style="display:flex;"><span>      [<span style="color:#66d9ef">ASC</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">DESC</span>], ...]
+</span></span><span style="display:flex;"><span>    [<span style="color:#66d9ef">LIMIT</span> <span style="color:#960050;background-color:#1e0010">{</span>[<span style="color:#66d9ef">offset</span>,] <span style="color:#66d9ef">row_count</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">row_count</span> <span style="color:#66d9ef">OFFSET</span> <span style="color:#66d9ef">offset</span><span style="color:#960050;background-color:#1e0010">}</span>]
+</span></span><span style="display:flex;"><span>    [<span style="color:#66d9ef">PROCEDURE</span> procedure_name(argument_list)]
+</span></span><span style="display:flex;"><span>    [into_option]
+</span></span><span style="display:flex;"><span>    [<span style="color:#66d9ef">FOR</span> <span style="color:#66d9ef">UPDATE</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">LOCK</span> <span style="color:#66d9ef">IN</span> <span style="color:#66d9ef">SHARE</span> <span style="color:#66d9ef">MODE</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>into_option: <span style="color:#960050;background-color:#1e0010">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">INTO</span> OUTFILE <span style="color:#e6db74">&#39;file_name&#39;</span>
+</span></span><span style="display:flex;"><span>        [CHARACTER <span style="color:#66d9ef">SET</span> charset_name]
+</span></span><span style="display:flex;"><span>        export_options
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> <span style="color:#66d9ef">INTO</span> DUMPFILE <span style="color:#e6db74">&#39;file_name&#39;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> <span style="color:#66d9ef">INTO</span> var_name [, var_name] ...
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">}</span>
+</span></span></code></pre></div><h3 id="distinct">DISTINCT<a hidden class="anchor" aria-hidden="true" href="#distinct">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">ALL</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">DISTINCT</span> <span style="color:#f92672">|</span> DISTINCTROW
+</span></span></code></pre></div><p><code>DISTINCT</code>修饰符指定是否应返回重复的行</p>
+<p><code>ALL</code>（默认值）指定应返回所有匹配的行，包括重复行；<code>DISTINCT</code>指定从结果集中删除重复行，<code>DISTINCTROW</code>是<code>DISTINCT</code>的同义词</p>
+<p>使用时放在<code>SELECT</code>关键字之后</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">DISTINCT</span> col1, col2 <span style="color:#66d9ef">from</span> tbl
+</span></span></code></pre></div><h3 id="limit">LIMIT<a hidden class="anchor" aria-hidden="true" href="#limit">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">LIMIT</span> <span style="color:#960050;background-color:#1e0010">{</span>[<span style="color:#66d9ef">offset</span>,] <span style="color:#66d9ef">row_count</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">row_count</span> <span style="color:#66d9ef">OFFSET</span> <span style="color:#66d9ef">offset</span><span style="color:#960050;background-color:#1e0010">}</span>
+</span></span></code></pre></div><p><code>LIMIT</code>子句限制<code>SELECT</code>语句返回的行数</p>
+<p>它接受一个或两个数字参数，第一个参数指定要返回的第一行的偏移量，第二个参数指定要返回的最大行数，初始行的偏移量为 0（不是 1）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> tbl <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">5</span>;  <span style="color:#f92672">#</span> <span style="color:#960050;background-color:#1e0010">检索前</span> <span style="color:#ae81ff">5</span> <span style="color:#960050;background-color:#1e0010">行</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> tbl <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">10</span>;  <span style="color:#f92672">#</span> <span style="color:#960050;background-color:#1e0010">检索</span> <span style="color:#ae81ff">6</span><span style="color:#f92672">-</span><span style="color:#ae81ff">15</span> <span style="color:#960050;background-color:#1e0010">行</span>
+</span></span></code></pre></div><p>为了与 PostgreSQL 兼容，MySQL 也支持<code>LIMIT row_count OFFSET offset</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> tbl <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">10</span> <span style="color:#66d9ef">OFFSET</span> <span style="color:#ae81ff">5</span>;  <span style="color:#f92672">#</span> <span style="color:#960050;background-color:#1e0010">检索</span> <span style="color:#ae81ff">6</span><span style="color:#f92672">-</span><span style="color:#ae81ff">15</span> <span style="color:#960050;background-color:#1e0010">行</span>
+</span></span></code></pre></div><h3 id="order-by">ORDER BY<a hidden class="anchor" aria-hidden="true" href="#order-by">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> <span style="color:#960050;background-color:#1e0010">{</span>col_name <span style="color:#f92672">|</span> expr <span style="color:#f92672">|</span> <span style="color:#66d9ef">position</span><span style="color:#960050;background-color:#1e0010">}</span> [<span style="color:#66d9ef">ASC</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">DESC</span>], ...
+</span></span></code></pre></div><p><code>ORDER BY</code>子句对<code>SELECT</code>检索结果按照列名、列别名或列位置进行排序输出</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> college, region, seed <span style="color:#66d9ef">FROM</span> tournament
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> region, seed;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> college, region <span style="color:#66d9ef">AS</span> r, seed <span style="color:#66d9ef">AS</span> s <span style="color:#66d9ef">FROM</span> tournament
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> r, s;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> college, region, seed <span style="color:#66d9ef">FROM</span> tournament
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>;
+</span></span></code></pre></div><p>在按多个列排序时，排序完全按照所规定的顺序进行，在上述示例中，仅在多个行具有相同的<code>region</code>时才对数据按<code>seed</code>进行排序，否则不会按<code>seed</code>排序</p>
+<p><code>ORDER BY</code>默认为升序（ASC），通过指定<code>DESC</code>来进行降序排序</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> college, region, seed <span style="color:#66d9ef">FROM</span> tournament
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> region <span style="color:#66d9ef">DESC</span>, seed;
+</span></span></code></pre></div><p><code>DESC</code>关键字只应用到直接位于其前面的列名，在上述示例中，只对<code>region</code>列指定<code>DESC</code>，因此，<code>region</code>列按降序排序，<code>seed</code>列按升序排序</p>
+<p>如果想在多个列上进行降序排序，必须对每个列指定<code>DESC</code>关键字</p>
+<h3 id="group-by">GROUP BY<a hidden class="anchor" aria-hidden="true" href="#group-by">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> <span style="color:#960050;background-color:#1e0010">{</span>col_name <span style="color:#f92672">|</span> expr <span style="color:#f92672">|</span> <span style="color:#66d9ef">position</span><span style="color:#960050;background-color:#1e0010">}</span> [<span style="color:#66d9ef">ASC</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">DESC</span>], ... [<span style="color:#66d9ef">WITH</span> <span style="color:#66d9ef">ROLLUP</span>]
+</span></span></code></pre></div><p><code>GROUP BY</code>子句按照列名、列别名或列位置进行分组</p>
+<h2 id="过滤数据">过滤数据<a hidden class="anchor" aria-hidden="true" href="#过滤数据">#</a></h2>
+<h3 id="算术运算符">算术运算符<a hidden class="anchor" aria-hidden="true" href="#算术运算符">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+</td>
+<td>加</td>
+</tr>
+<tr>
+<td>-</td>
+<td>减</td>
+</tr>
+<tr>
+<td>*</td>
+<td>乘</td>
+</tr>
+<tr>
+<td>/ 或 DIV</td>
+<td>除</td>
+</tr>
+<tr>
+<td>% 或 MOD</td>
+<td>取余</td>
+</tr>
+</tbody>
+</table>
+<p>在除法运算和模运算中，如果除数为 0，将是非法除数，返回结果为 NULL</p>
+<h3 id="比较运算符">比较运算符<a hidden class="anchor" aria-hidden="true" href="#比较运算符">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>=</td>
+<td>等于</td>
+</tr>
+<tr>
+<td>&lt;&gt;</td>
+<td>不等于</td>
+</tr>
+<tr>
+<td>!=</td>
+<td>不等于</td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td>小于</td>
+</tr>
+<tr>
+<td>&lt;=</td>
+<td>小于等于</td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td>大于</td>
+</tr>
+<tr>
+<td>&gt;=</td>
+<td>大于等于</td>
+</tr>
+<tr>
+<td>BETWEEN</td>
+<td>在两值之间；使用AND连接；闭区间</td>
+</tr>
+<tr>
+<td>IS NULL</td>
+<td>为空</td>
+</tr>
+<tr>
+<td>IS NOT NULL</td>
+<td>不为空</td>
+</tr>
+<tr>
+<td>IN</td>
+<td>在集合中；圆括号中由逗号分隔</td>
+</tr>
+<tr>
+<td>NOT IN</td>
+<td>不在集合中</td>
+</tr>
+<tr>
+<td>LIKE</td>
+<td>模糊匹配</td>
+</tr>
+<tr>
+<td>REGEXP 或 RLIKE</td>
+<td>正则匹配</td>
+</tr>
+</tbody>
+</table>
+<h4 id="like-通配符">LIKE 通配符<a hidden class="anchor" aria-hidden="true" href="#like-通配符">#</a></h4>
+<ul>
+<li><code>%</code>匹配任何字符出现任意次数（包括 0 个字符），无法匹配<code>NULL</code></li>
+<li><code>_</code>匹配任意单个字符</li>
+</ul>
+<p>通配符搜索的处理一般要比其他搜索所花时间更长，若非必要，尽量不要使用通配符</p>
+<p>在确实需要使用通配符时，若非必要，不要把它们用在搜索模式的开始处，这样搜索起来是最慢的</p>
+<h4 id="regexp">REGEXP<a hidden class="anchor" aria-hidden="true" href="#regexp">#</a></h4>
+<p>MySQL 仅支持多数正则表达式实现的一个很小的子集</p>
+<ul>
+<li><code>^</code>匹配输入字符串的开始位置</li>
+<li><code>$</code>匹配输入字符串的结束位置</li>
+<li><code>.</code>匹配除<code>\n</code>之外的任何单个字符</li>
+<li><code>[...]</code>匹配所包含的任意一个字符</li>
+<li><code>[^...]</code>匹配未包含的任意字符</li>
+<li><code>|</code>匹配其中之一</li>
+<li><code>*</code>匹配前面的子表达式零次或多次</li>
+<li><code>+</code>匹配前面的子表达式一次或多次，等价于<code>{1,}</code></li>
+<li><code>?</code>匹配前面的子表达式零次或一次，等价于<code>{0, 1}</code></li>
+<li><code>{n}</code>匹配确定的 n 次（n 是一个非负整数）</li>
+<li><code>{n, m}</code>最少匹配 n 次且最多匹配 m 次（n 和 m 均为非负整数且 n &lt;= m）</li>
+</ul>
+<p>匹配需要转义的特殊字符时，使用双反斜杠<code>\\</code>，包括一些非打印字符</p>
+<ul>
+<li><code>\\n</code>换行</li>
+<li><code>\\r</code>回车</li>
+<li><code>\\t</code>制表</li>
+<li><code>\\v</code>纵向制表</li>
+</ul>
+<p>如果使用的字符集不区分大小写，而想要在匹配时区分大小写，可使用<code>BINARY</code>关键字</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>... <span style="color:#66d9ef">WHERE</span> field <span style="color:#66d9ef">LIKE</span> BINARY <span style="color:#e6db74">&#39;...&#39;</span>
+</span></span><span style="display:flex;"><span>... <span style="color:#66d9ef">WHERE</span> field REGEXP BINARY <span style="color:#e6db74">&#39;...&#39;</span>
+</span></span></code></pre></div><h4 id="like-和-regexp-区别">LIKE 和 REGEXP 区别<a hidden class="anchor" aria-hidden="true" href="#like-和-regexp-区别">#</a></h4>
+<p><code>LIKE</code>匹配整个列，如果需要匹配的文本仅是列值的一部分，<code>LIKE</code>将不会匹配该列值，而<code>REGEXP</code>则会匹配该列值。<code>REGEXP</code>若要匹配整个列值，使用<code>^</code>和<code>$</code>定位符即可</p>
+<h3 id="逻辑运算符">逻辑运算符<a hidden class="anchor" aria-hidden="true" href="#逻辑运算符">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NOT 或 !</td>
+<td>逻辑非</td>
+</tr>
+<tr>
+<td>AND 或 &amp;&amp;</td>
+<td>逻辑与</td>
+</tr>
+<tr>
+<td>OR 或 ||</td>
+<td>逻辑或</td>
+</tr>
+<tr>
+<td>XOR</td>
+<td>逻辑异或</td>
+</tr>
+</tbody>
+</table>
+<h3 id="位运算符">位运算符<a hidden class="anchor" aria-hidden="true" href="#位运算符">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&amp;</td>
+<td>按位与</td>
+</tr>
+<tr>
+<td>|</td>
+<td>按位或</td>
+</tr>
+<tr>
+<td>^</td>
+<td>按位异或</td>
+</tr>
+<tr>
+<td>~</td>
+<td>按位取反</td>
+</tr>
+<tr>
+<td>&laquo;</td>
+<td>左移</td>
+</tr>
+<tr>
+<td>&raquo;</td>
+<td>右移</td>
+</tr>
+</tbody>
+</table>
+<p>位运算符是在二进制数上进行计算的运算符，会先将操作数变成二进制数，进行位运算，然后再将计算结果从二进制数变回十进制数</p>
+<h2 id="函数">函数<a hidden class="anchor" aria-hidden="true" href="#函数">#</a></h2>
+<p><a href="https://dev.mysql.com/doc/refman/5.7/en/functions.html">函数和运算符</a></p>
+<h3 id="常用字符串函数">常用字符串函数<a hidden class="anchor" aria-hidden="true" href="#常用字符串函数">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CONCAT(str1, str2, &hellip;)</td>
+<td>返回由连接参数产生的字符串</td>
+</tr>
+<tr>
+<td>TRIM([remstr FROM] str)</td>
+<td>返回删除前导和尾随空格的字符串</td>
+</tr>
+<tr>
+<td>LTRIM(str) 或 RTRIM(str)</td>
+<td>返回删除前导或尾随空格的字符串</td>
+</tr>
+<tr>
+<td>LEFT(str, len) 或 RIGHT(str, len)</td>
+<td>返回字符串 str 最左边或最右边的 len 个字符</td>
+</tr>
+<tr>
+<td>LENGTH(str)</td>
+<td>返回字符串长度</td>
+</tr>
+<tr>
+<td>CHAR_LENGTH(str) 或 CHARACTER_LENGTH(str)</td>
+<td>返回字符串长度</td>
+</tr>
+<tr>
+<td>UPPER(str) 或 UCASE(str)</td>
+<td>返回所有字符都变为大写的字符串</td>
+</tr>
+<tr>
+<td>LOWER(str) 或 LCASE(str)</td>
+<td>返回所有字符都变为小写的字符串</td>
+</tr>
+<tr>
+<td>SUBSTRING(str, pos)</td>
+<td>返回从 pos 位置开始的子串</td>
+</tr>
+<tr>
+<td>SUBSTRING(str, pos, len)</td>
+<td>返回从 pos 位置开始长度为 len 的子串</td>
+</tr>
+<tr>
+<td>LOCATE(substr, str)</td>
+<td>返回子字符串第一次出现的位置，未找到则返回 0</td>
+</tr>
+<tr>
+<td>LOCATE(substr, str, pos)</td>
+<td>返回子字符串从 pos 位置开始第一次出现的位置</td>
+</tr>
+</tbody>
+</table>
+<p>一般，字符串函数中</p>
+<ul>
+<li>如果参数有<code>NULL</code>，返回的结果也为<code>NULL</code></li>
+<li>参数中的数值类型将被转换成它的等价的非二进制字符串形式</li>
+</ul>
+<h4 id="lengthstr">LENGTH(str)<a hidden class="anchor" aria-hidden="true" href="#lengthstr">#</a></h4>
+<p>LENGTH() 以字节为单位，一个多字节字符计为多个字节，意味着对于包含五个 2 字节字符的字符串， LENGTH() 返回 10，而 CHAR_LENGTH() 返回 5</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">LENGTH</span>(<span style="color:#e6db74">&#39;中文&#39;</span>);  <span style="color:#75715e">-- 6
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">CHAR_LENGTH</span>(<span style="color:#e6db74">&#39;中文&#39;</span>);  <span style="color:#75715e">-- 2
+</span></span></span></code></pre></div><h3 id="常用日期和时间函数">常用日期和时间函数<a hidden class="anchor" aria-hidden="true" href="#常用日期和时间函数">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NOW([fsp])</td>
+<td>返回当前日期和时间</td>
+</tr>
+<tr>
+<td>CURDATE() 或 CURRENT_DATE()</td>
+<td>返回当前日期</td>
+</tr>
+<tr>
+<td>CURTIME([fsp]) 或 CURRENT_TIME([fsp])</td>
+<td>返回当前时间</td>
+</tr>
+<tr>
+<td>ADDDATE(date, days)</td>
+<td>返回增加或减少一定天数的日期</td>
+</tr>
+<tr>
+<td>ADDTIME(expr1, expr2)</td>
+<td>expr2 为整数时，返回增加或减少一定秒数的时间</td>
+</tr>
+<tr>
+<td>DATE_FORMAT(date, format)</td>
+<td>根据 format 格式化 date</td>
+</tr>
+<tr>
+<td>DATEDIFF(expr1, expr2)</td>
+<td>返回两个日期之间的天数</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>fsp 指定秒的小数部分精度，范围 [0, 6]</li>
+<li>在存储的函数或触发器中， NOW() 返回函数或触发语句开始执行的时间，而 SYSDATE() 返回它执行的时间</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> NOW(), SLEEP(<span style="color:#ae81ff">2</span>), NOW();
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">---------------------+----------+---------------------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> NOW()               <span style="color:#f92672">|</span> SLEEP(<span style="color:#ae81ff">2</span>) <span style="color:#f92672">|</span> NOW()               <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">---------------------+----------+---------------------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> <span style="color:#ae81ff">2022</span><span style="color:#f92672">-</span><span style="color:#ae81ff">08</span><span style="color:#f92672">-</span><span style="color:#ae81ff">30</span> <span style="color:#ae81ff">20</span>:<span style="color:#ae81ff">46</span>:<span style="color:#ae81ff">04</span> <span style="color:#f92672">|</span> <span style="color:#ae81ff">0</span>        <span style="color:#f92672">|</span> <span style="color:#ae81ff">2022</span><span style="color:#f92672">-</span><span style="color:#ae81ff">08</span><span style="color:#f92672">-</span><span style="color:#ae81ff">30</span> <span style="color:#ae81ff">20</span>:<span style="color:#ae81ff">46</span>:<span style="color:#ae81ff">04</span> <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">---------------------+----------+---------------------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">SELECT</span> SYSDATE(), SLEEP(<span style="color:#ae81ff">2</span>), SYSDATE();
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">---------------------+----------+---------------------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> SYSDATE()           <span style="color:#f92672">|</span> SLEEP(<span style="color:#ae81ff">2</span>) <span style="color:#f92672">|</span> SYSDATE()           <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">---------------------+----------+---------------------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> <span style="color:#ae81ff">2022</span><span style="color:#f92672">-</span><span style="color:#ae81ff">08</span><span style="color:#f92672">-</span><span style="color:#ae81ff">30</span> <span style="color:#ae81ff">20</span>:<span style="color:#ae81ff">47</span>:<span style="color:#ae81ff">38</span> <span style="color:#f92672">|</span> <span style="color:#ae81ff">0</span>        <span style="color:#f92672">|</span> <span style="color:#ae81ff">2022</span><span style="color:#f92672">-</span><span style="color:#ae81ff">08</span><span style="color:#f92672">-</span><span style="color:#ae81ff">30</span> <span style="color:#ae81ff">20</span>:<span style="color:#ae81ff">47</span>:<span style="color:#ae81ff">40</span> <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">---------------------+----------+---------------------+
+</span></span></span></code></pre></div><ul>
+<li>DATE_FORMAT 中几个常用说明符
+<ul>
+<li><code>%Y(%y)</code>  年份，数字，四位（两位）</li>
+<li><code>%M(%m)</code>英文月份名称（月份，数字）</li>
+<li><code>%D(%d)</code>带英文后缀的月份中的某天（月份中的日期，数字）</li>
+<li><code>%H(%h)</code>小时，00..23（00..12）</li>
+<li><code>%S(%s)</code>秒，00..59（00..59）</li>
+</ul>
+</li>
+</ul>
+<h3 id="常用数值处理函数">常用数值处理函数<a hidden class="anchor" aria-hidden="true" href="#常用数值处理函数">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ABS(X)</td>
+<td>返回绝对值</td>
+</tr>
+<tr>
+<td>MOD(N, M)</td>
+<td>模运算，返回 N 除以 M 的余数</td>
+</tr>
+<tr>
+<td>RAND([N])</td>
+<td>返回 0 到 1 之间到随机浮点数（N 为种子值）</td>
+</tr>
+<tr>
+<td>CEIL(X) 或 CEILING(X)</td>
+<td>返回不小于 X 的最小整数值</td>
+</tr>
+<tr>
+<td>FLOOR(X)</td>
+<td>返回不大于 X 的最大整数值</td>
+</tr>
+<tr>
+<td>TRUNCATE(X, D)</td>
+<td>返回数字 X，截断到 D 小数位</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>MOD(N, 0) 返回<code>NULL</code></li>
+<li>想要获取<code>[i, j)</code>之间到随机整数，使用<code>FLOOR(i + RAND() * (j − i))</code></li>
+<li>TRUNCATE(X, D) 中 D 可以为负数，使小数点左边 D 位变为零</li>
+</ul>
+<h3 id="聚合函数">聚合函数<a hidden class="anchor" aria-hidden="true" href="#聚合函数">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AVG([DISTINCT] expr)</td>
+<td>返回平均值</td>
+</tr>
+<tr>
+<td>COUNT([DISTINCT] expr)</td>
+<td>返回非 NULL 值的计数</td>
+</tr>
+<tr>
+<td>MAX([DISTINCT] expr)</td>
+<td>返回最大值</td>
+</tr>
+<tr>
+<td>MIN([DISTINCT] expr)</td>
+<td>返回最小值</td>
+</tr>
+<tr>
+<td>SUM([DISTINCT] expr)</td>
+<td>返回总和</td>
+</tr>
+<tr>
+<td>GROUP_CONCAT([DISTINCT] expr)</td>
+<td>返回非 NULL 值连接后的字符串</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>除非另有说明，否则聚合函数会忽略<code>NULL</code>值，COUNT(*) 除外</li>
+</ul>
+<h4 id="group_concat">GROUP_CONCAT<a hidden class="anchor" aria-hidden="true" href="#group_concat">#</a></h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>GROUP_CONCAT([<span style="color:#66d9ef">DISTINCT</span>] expr [,expr ...]
+</span></span><span style="display:flex;"><span>             [<span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> <span style="color:#960050;background-color:#1e0010">{</span>unsigned_integer <span style="color:#f92672">|</span> col_name <span style="color:#f92672">|</span> expr<span style="color:#960050;background-color:#1e0010">}</span>
+</span></span><span style="display:flex;"><span>                 [<span style="color:#66d9ef">ASC</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">DESC</span>] [,col_name ...]]
+</span></span><span style="display:flex;"><span>             [SEPARATOR str_val])
+</span></span></code></pre></div><p>默认分隔符为逗号<code>(,)</code>，使用 SEPARATOR 显示指定分隔符</p>
+<h2 id="存储过程">存储过程<a hidden class="anchor" aria-hidden="true" href="#存储过程">#</a></h2>
+<p><a href="https://dev.mysql.com/doc/refman/5.7/en/stored-objects.html">存储对象</a></p>
+<h3 id="创建存储过程">创建存储过程<a hidden class="anchor" aria-hidden="true" href="#创建存储过程">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">PROCEDURE</span> procName(
+</span></span><span style="display:flex;"><span>	proc_parameter param_name1 <span style="color:#66d9ef">type</span>,
+</span></span><span style="display:flex;"><span>    proc_parameter param_name2 <span style="color:#66d9ef">type</span>,
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">BEGIN</span>
+</span></span><span style="display:flex;"><span>	Statement1;
+</span></span><span style="display:flex;"><span>	Statement2;
+</span></span><span style="display:flex;"><span>	...
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">END</span>;
+</span></span></code></pre></div><p><code>proc_parameter</code>取值<code>[ IN | OUT | INOUT ]</code>，若没有指定，默认为<code>IN</code></p>
+<p>无论是否有参数，<code>()</code>都不可省略</p>
+<p>在参数列表<code>()</code>后可使用<code>COMMENT</code>添加备注信息</p>
+<p>在存储过程体中，可使用<code>DECLARE</code>定义局部变量，必须指定变量名和变量类型，如<code>DECLARE variable INT</code>，也支持可选的默认值，如<code>DECLARE variable INT DEFAULT 0</code></p>
+<p>如果有变量声明，所有变量声明必须位于第一条非声明语句之前</p>
+<h3 id="删除存储过程">删除存储过程<a hidden class="anchor" aria-hidden="true" href="#删除存储过程">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">DROP</span> <span style="color:#66d9ef">PROCEDURE</span> proName;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- 仅当存在时删除
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">DROP</span> <span style="color:#66d9ef">PROCEDURE</span> <span style="color:#66d9ef">IF</span> <span style="color:#66d9ef">EXISTS</span> proName;
+</span></span></code></pre></div><h3 id="执行存储过程">执行存储过程<a hidden class="anchor" aria-hidden="true" href="#执行存储过程">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">CALL</span> proName();
+</span></span></code></pre></div><p>无论是否传递参数，<code>()</code>都不可省略</p>
+<h3 id="检查存储过程">检查存储过程<a hidden class="anchor" aria-hidden="true" href="#检查存储过程">#</a></h3>
+<p>为显示用来创建一个存储过程的CREATE语句，使用以下命令</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SHOW</span> <span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">PROCEDURE</span> proName;
+</span></span></code></pre></div><p>为获得包括何时、由谁创建等详细信息的存储过程列表，使用以下命令</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SHOW</span> <span style="color:#66d9ef">PROCEDURE</span> STATUS;
+</span></span></code></pre></div><p>如果在<code>CREATE PROCEDURE</code>语句中包含了<code>COMMENT</code>，则会在该语句的结果中显示出来</p>
+<h3 id="参数">参数<a hidden class="anchor" aria-hidden="true" href="#参数">#</a></h3>
+<p>MySQL 支持 IN（传递给存储过程）、OUT（从存储过程传出）、INOUT（对存储过程传入和传出）类型的参数</p>
+<p>不能通过一个参数返回多个行和列</p>
+<h3 id="变量">变量<a hidden class="anchor" aria-hidden="true" href="#变量">#</a></h3>
+<p>定义变量有两种方式</p>
+<ul>
+<li>
+<p>使用<code>set</code>或<code>select</code>直接赋值，变量名以<code>@</code>开头，如<code>set @vari=0</code></p>
+<p>可以在一个会话的任何地方声明，作用域是整个会话，称为会话变量</p>
+</li>
+<li>
+<p>以<code>DECLARE</code>关键字声明的变量，只能在存储过程中使用，称为存储过程变量，如<code>DECLARE vari INT DEFAULT 0</code></p>
+</li>
+</ul>
+<p>二者的区别是，在调用存储过程时，以<code>DECLARE</code>声明的变量都会被初始化为<code>NULL</code>。而会话变量（即@开头的变量）则不会被再初始化，在一个会话内，只须初始化一次，之后在会话内都是对上一次计算的结果，就相当于在是这个会话内的全局变量</p>
+<p>在存储过程体中，声明的变量名不能和需要用到的表中的字段名相同，防止歧义</p>
+<h3 id="标签">标签<a hidden class="anchor" aria-hidden="true" href="#标签">#</a></h3>
+<p>MySQL 不支持<code>return</code>语句，常使用标签和<code>leave</code>来退出存储过程</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">PROCEDURE</span> proName(...)
+</span></span><span style="display:flex;"><span>label: <span style="color:#66d9ef">BEGIN</span>
+</span></span><span style="display:flex;"><span>	...
+</span></span><span style="display:flex;"><span>	leave label;
+</span></span><span style="display:flex;"><span>	...
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">END</span>;
+</span></span></code></pre></div><p>注：<code>label: BEGIN</code>，冒号后必须有空格！</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://FallingKid.github.io/tags/mysql/">MySQL</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://FallingKid.github.io/post/yum/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Yum</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2022 <a href="https://FallingKid.github.io">FallingKid</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

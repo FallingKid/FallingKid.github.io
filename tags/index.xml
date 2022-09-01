@@ -6,7 +6,16 @@
     <description>Recent content in Tags on FallingKid</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 04 Aug 2022 23:25:37 +0800</lastBuildDate><atom:link href="https://FallingKid.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 01 Sep 2022 19:53:35 +0800</lastBuildDate><atom:link href="https://FallingKid.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MySQL</title>
+      <link>https://FallingKid.github.io/tags/mysql/</link>
+      <pubDate>Thu, 01 Sep 2022 19:53:35 +0800</pubDate>
+      
+      <guid>https://FallingKid.github.io/tags/mysql/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>command</title>
       <link>https://FallingKid.github.io/tags/command/</link>
